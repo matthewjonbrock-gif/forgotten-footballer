@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07130e">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="theme-color"
+    content="#07130e"
+  >
 
   <title>Forgotten Footballer</title>
 
@@ -27,8 +35,14 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       color: var(--text);
+
       background:
         radial-gradient(
           circle at top,
@@ -39,7 +53,8 @@
     }
 
     button,
-    input {
+    input,
+    select {
       font: inherit;
     }
 
@@ -49,17 +64,18 @@
 
     button:disabled {
       cursor: not-allowed;
-      opacity: 0.55;
+      opacity: 0.45;
     }
 
     button:focus-visible,
-    input:focus-visible {
+    input:focus-visible,
+    select:focus-visible {
       outline: 3px solid rgba(80, 221, 152, 0.5);
       outline-offset: 2px;
     }
 
     .app {
-      width: min(100%, 520px);
+      width: min(100%, 540px);
       margin: 0 auto;
       padding: 16px;
     }
@@ -67,21 +83,39 @@
     .header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 12px;
+
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-weight: bold;
     }
 
     .logo {
       width: 42px;
       height: 42px;
+
       display: grid;
       place-items: center;
+
       border-radius: 13px;
+
       color: #052016;
       background: var(--green);
+
       font-weight: 900;
+    }
+
+    .header-score {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: bold;
     }
 
     .screen {
@@ -90,14 +124,22 @@
 
     h1 {
       margin: 0 0 12px;
+
       font-size: 42px;
       line-height: 0.98;
       letter-spacing: -2px;
     }
 
+    h2 {
+      margin: 24px 0 12px;
+      font-size: 21px;
+    }
+
     .eyebrow {
       margin: 0 0 9px;
+
       color: var(--green);
+
       font-size: 12px;
       font-weight: bold;
       letter-spacing: 2px;
@@ -109,23 +151,30 @@
     }
 
     .hero,
+    .setup-card,
     .controls,
     .details,
     .results-card {
       padding: 18px;
+
       border: 1px solid var(--border);
       border-radius: 24px;
+
       background: var(--panel);
     }
 
     .primary,
     .secondary,
+    .ghost,
     .forgotten-button {
       width: 100%;
       min-height: 52px;
+
       padding: 12px;
+
       border: 1px solid transparent;
       border-radius: 16px;
+
       font-weight: bold;
     }
 
@@ -140,18 +189,135 @@
       border-color: var(--border);
     }
 
+    .ghost {
+      color: var(--muted);
+      background: transparent;
+      border-color: var(--border);
+    }
+
     .forgotten-button {
       margin-bottom: 10px;
+
       color: var(--gold);
+
       background: rgba(244, 211, 130, 0.08);
       border-color: rgba(244, 211, 130, 0.35);
+    }
+
+    .button-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+
+      margin-top: 12px;
+    }
+
+    .stat-card {
+      padding: 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 17px;
+
+      background: var(--panel);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-bottom: 5px;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .stat-card strong {
+      font-size: 24px;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    select,
+    input {
+      width: 100%;
+      min-height: 52px;
+
+      padding: 12px;
+
+      color: var(--text);
+      background: #091811;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .length-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+    }
+
+    .length-button {
+      min-height: 70px;
+
+      padding: 10px;
+
+      color: var(--muted);
+      background: #0a1b13;
+
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      font-weight: bold;
+    }
+
+    .length-button small {
+      display: block;
+      margin-top: 4px;
+      font-weight: normal;
+    }
+
+    .length-button.active {
+      color: var(--text);
+
+      background: rgba(80, 221, 152, 0.13);
+      border-color: rgba(80, 221, 152, 0.55);
+    }
+
+    .notice {
+      margin: 14px 0;
+      padding: 13px;
+
+      color: var(--muted);
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      background: rgba(255, 255, 255, 0.03);
+
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .game-top,
     .score-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
     }
 
     .game-top {
@@ -171,18 +337,23 @@
 
     .photo-frame {
       position: relative;
+
       height: 470px;
       min-height: 350px;
       max-height: 62vh;
+
       overflow: hidden;
+
       border: 1px solid var(--border);
       border-radius: 26px;
+
       background: #0b1b14;
     }
 
     .player-photo {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
 
       object-position:
@@ -198,54 +369,37 @@
         filter 0.5s ease;
     }
 
-    /*
-      Reveal 1:
-      Clearly a face, but still difficult.
-    */
     .stage-0 .player-photo {
       transform: scale(1.82);
+
       filter:
         blur(11px)
         brightness(0.82)
         saturate(0.72);
     }
 
-    /*
-      Reveal 2:
-      Face shape and hair become visible.
-    */
     .stage-1 .player-photo {
       transform: scale(1.55);
+
       filter:
         blur(7px)
         brightness(0.9)
         saturate(0.82);
     }
 
-    /*
-      Reveal 3:
-      Features start becoming recognisable.
-    */
     .stage-2 .player-photo {
       transform: scale(1.32);
+
       filter:
         blur(4px)
         saturate(0.92);
     }
 
-    /*
-      Reveal 4:
-      Fairly clear.
-    */
     .stage-3 .player-photo {
       transform: scale(1.14);
       filter: blur(1.3px);
     }
 
-    /*
-      Reveal 5:
-      Full clear portrait.
-    */
     .stage-4 .player-photo {
       transform: scale(1);
       filter: none;
@@ -255,12 +409,17 @@
       position: absolute;
       top: 14px;
       z-index: 3;
+
       padding: 8px 11px;
+
       border: 1px solid var(--border);
       border-radius: 999px;
+
       background: rgba(5, 17, 12, 0.85);
+
       font-size: 12px;
       font-weight: bold;
+
       backdrop-filter: blur(8px);
     }
 
@@ -277,9 +436,12 @@
       position: absolute;
       inset: 0;
       z-index: 2;
+
       display: none;
       place-items: center;
+
       padding: 30px;
+
       text-align: center;
       background: var(--panel);
     }
@@ -287,13 +449,16 @@
     .meter {
       display: flex;
       gap: 6px;
+
       margin: 11px 0;
     }
 
     .meter span {
       height: 5px;
       flex: 1;
+
       border-radius: 20px;
+
       background: rgba(255, 255, 255, 0.12);
     }
 
@@ -304,33 +469,22 @@
     .final-clue {
       margin-bottom: 11px;
       padding: 14px;
+
       color: var(--gold);
+
       border: 1px solid rgba(244, 211, 130, 0.3);
       border-radius: 16px;
+
       background: rgba(244, 211, 130, 0.07);
+
       line-height: 1.45;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--muted);
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      min-height: 52px;
-      padding: 12px;
-      color: var(--text);
-      background: #091811;
-      border: 1px solid var(--border);
-      border-radius: 15px;
     }
 
     .feedback {
       min-height: 24px;
+
       margin: 8px 0;
+
       color: var(--danger);
       font-weight: bold;
     }
@@ -343,20 +497,25 @@
       display: grid;
       grid-template-columns: 1.3fr 0.7fr;
       gap: 9px;
+
       margin-top: 9px;
     }
 
     .full-photo {
       width: 100%;
       height: 420px;
+
       object-fit: cover;
+
       border: 1px solid var(--border);
       border-radius: 24px;
+
       background: #0b1b14;
     }
 
     .player-name {
       margin: 16px 0 6px;
+
       font-size: 38px;
       line-height: 1;
     }
@@ -369,7 +528,9 @@
       display: flex;
       justify-content: space-between;
       gap: 20px;
+
       padding: 10px 0;
+
       border-bottom: 1px solid var(--border);
     }
 
@@ -383,7 +544,9 @@
 
     .attribution {
       margin-top: 16px;
+
       color: var(--muted);
+
       font-size: 12px;
       line-height: 1.5;
     }
@@ -394,15 +557,24 @@
 
     .big-score {
       margin: 15px 0;
+
       color: var(--green);
+
       font-size: 64px;
       font-weight: bold;
     }
 
     .result-grid {
       margin: 18px 0;
+
       font-size: 28px;
       letter-spacing: 4px;
+    }
+
+    @media (min-width: 500px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     @media (max-width: 400px) {
@@ -424,186 +596,29 @@
 <body>
   <main class="app">
     <header class="header">
-      <div class="logo">FF</div>
-      <div>Forgotten Footballer</div>
+      <div class="brand">
+        <div class="logo">FF</div>
+        <div>Forgotten Footballer</div>
+      </div>
+
+      <div
+        id="headerBest"
+        class="header-score"
+      >
+        🏆 0
+      </div>
     </header>
 
     <div id="screen"></div>
   </main>
 
+  <script src="players.js"></script>
+
   <script>
-    /*
-      Every photograph below has been selected because
-      the player's face is clearly visible.
-
-      focusX and focusY keep each face centred while
-      the image zooms and becomes clearer.
-    */
-    const players = [
-      {
-        name: "Morten Gamst Pedersen",
-
-        answers: [
-          "morten gamst pedersen",
-          "gamst pedersen",
-          "morten pedersen",
-          "pedersen"
-        ],
-
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/f/fd/Morten_Gamst_Pedersen_vs_England_May_2012_%28cropped%29.jpg",
-
-        source:
-          "https://commons.wikimedia.org/wiki/File:Morten_Gamst_Pedersen_vs_England_May_2012_(cropped).jpg",
-
-        nationality: "Norway",
-        position: "Left midfielder",
-        clubs: "Blackburn Rovers",
-
-        fact:
-          "Remembered for his left foot, dangerous set pieces and spectacular long-range goals.",
-
-        difficulty: 4,
-
-        credit:
-          "John Christian Fjellestad, CC BY-SA 2.0, via Wikimedia Commons",
-
-        focusX: "50%",
-        focusY: "34%"
-      },
-
-      {
-        name: "Niko Kranjčar",
-
-        answers: [
-          "niko kranjcar",
-          "kranjcar",
-          "niko kranjar",
-          "kranjar",
-          "krancjar",
-          "krancjiar"
-        ],
-
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/9/9a/Nikokranjcarfootballer.jpg",
-
-        source:
-          "https://commons.wikimedia.org/wiki/File:Nikokranjcarfootballer.jpg",
-
-        nationality: "Croatia",
-        position: "Attacking midfielder",
-        clubs: "Portsmouth and Tottenham Hotspur",
-
-        fact:
-          "A stylish creative midfielder remembered for his technique and ability from distance.",
-
-        difficulty: 5,
-
-        credit:
-          "Daveangelports, public domain, via Wikimedia Commons",
-
-        focusX: "50%",
-        focusY: "38%"
-      },
-
-      {
-        name: "Yakubu",
-
-        answers: [
-          "yakubu",
-          "yakubu aiyegbeni",
-          "aiyegbeni",
-          "the yak"
-        ],
-
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/0/0f/Yakubu_in_2013_%28cropped%29.jpg",
-
-        source:
-          "https://commons.wikimedia.org/wiki/File:Yakubu_in_2013_(cropped).jpg",
-
-        nationality: "Nigeria",
-        position: "Striker",
-
-        clubs:
-          "Portsmouth, Middlesbrough, Everton and Blackburn",
-
-        fact:
-          "A powerful and prolific Premier League striker who scored goals for several clubs.",
-
-        difficulty: 3,
-
-        credit:
-          "Alexchen4836, CC BY-SA 4.0, via Wikimedia Commons",
-
-        focusX: "50%",
-        focusY: "20%"
-      },
-
-      {
-        name: "Roque Santa Cruz",
-
-        answers: [
-          "roque santa cruz",
-          "santa cruz",
-          "roque",
-          "santacruz"
-        ],
-
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/0/04/Roque_Luis_Santa_Cruz.jpg",
-
-        source:
-          "https://commons.wikimedia.org/wiki/File:Roque_Luis_Santa_Cruz.jpg",
-
-        nationality: "Paraguay",
-        position: "Striker",
-        clubs: "Blackburn Rovers and Manchester City",
-
-        fact:
-          "His outstanding first Blackburn season made him one of the league's most sought-after strikers.",
-
-        difficulty: 4,
-
-        credit:
-          "Hazaña17, CC BY-SA, via Wikimedia Commons",
-
-        focusX: "50%",
-        focusY: "42%"
-      },
-
-      {
-        name: "Tugay",
-
-        answers: [
-          "tugay",
-          "tugay kerimoglu",
-          "kerimoglu",
-          "tugay kerimoglu"
-        ],
-
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/e/ec/Tugay_kerioglu_in_2016.jpg",
-
-        source:
-          "https://commons.wikimedia.org/wiki/File:Tugay_kerioglu_in_2016.jpg",
-
-        nationality: "Turkey",
-        position: "Central midfielder",
-        clubs: "Blackburn Rovers",
-
-        fact:
-          "A Blackburn cult hero remembered for calm midfield control and extraordinary long-range goals.",
-
-        difficulty: 6,
-
-        credit:
-          "Biser Todorov, CC BY-SA 4.0, via Wikimedia Commons",
-
-        focusX: "50%",
-        focusY: "43%"
-      }
-    ];
+    const players =
+      Array.isArray(window.PLAYERS)
+        ? window.PLAYERS
+        : [];
 
     const points = [
       1000,
@@ -614,39 +629,112 @@
     ];
 
     const screen =
-      document.getElementById("screen");
+      document.getElementById(
+        "screen"
+      );
+
+    const headerBest =
+      document.getElementById(
+        "headerBest"
+      );
+
+    const defaultStats = {
+      gamesPlayed: 0,
+      correctPlayers: 0,
+      bestScore: 0,
+      forgottenCount: 0,
+      lastDailyDate: ""
+    };
+
+    let stats =
+      loadStats();
+
+    let selectedEra =
+      "All Eras";
+
+    let selectedLength =
+      5;
 
     let game = {};
+
+    function loadStats() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              "forgottenFootballerStats"
+            )
+          );
+
+        return {
+          ...defaultStats,
+          ...saved
+        };
+      } catch {
+        return {
+          ...defaultStats
+        };
+      }
+    }
+
+    function saveStats() {
+      localStorage.setItem(
+        "forgottenFootballerStats",
+        JSON.stringify(stats)
+      );
+
+      updateHeader();
+    }
+
+    function updateHeader() {
+      headerBest.textContent =
+        "🏆 " +
+        stats.bestScore.toLocaleString();
+    }
 
     function normalise(value) {
       return String(value)
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "");
+        .replace(
+          /[\u0300-\u036f]/g,
+          ""
+        )
+        .replace(
+          /[^a-z0-9]/g,
+          ""
+        );
     }
 
-    /*
-      Forgiving spelling checker.
+    function editDistance(
+      first,
+      second
+    ) {
+      const a =
+        normalise(first);
 
-      It accepts missing letters, extra letters,
-      swapped letters and minor spelling mistakes.
-    */
-    function editDistance(first, second) {
-      const a = normalise(first);
-      const b = normalise(second);
+      const b =
+        normalise(second);
 
-      const matrix = Array.from(
-        { length: a.length + 1 },
-        () => Array(b.length + 1).fill(0)
-      );
+      const matrix =
+        Array.from(
+          {
+            length:
+              a.length + 1
+          },
+          () =>
+            Array(
+              b.length + 1
+            ).fill(0)
+        );
 
       for (
         let row = 0;
         row <= a.length;
         row += 1
       ) {
-        matrix[row][0] = row;
+        matrix[row][0] =
+          row;
       }
 
       for (
@@ -654,7 +742,8 @@
         column <= b.length;
         column += 1
       ) {
-        matrix[0][column] = column;
+        matrix[0][column] =
+          column;
       }
 
       for (
@@ -668,7 +757,8 @@
           column += 1
         ) {
           const cost =
-            a[row - 1] === b[column - 1]
+            a[row - 1] ===
+            b[column - 1]
               ? 0
               : 1;
 
@@ -679,14 +769,13 @@
               matrix[row - 1][column - 1] + cost
             );
 
-          /*
-            Treat two swapped letters as one mistake.
-          */
           if (
             row > 1 &&
             column > 1 &&
-            a[row - 1] === b[column - 2] &&
-            a[row - 2] === b[column - 1]
+            a[row - 1] ===
+              b[column - 2] &&
+            a[row - 2] ===
+              b[column - 1]
           ) {
             matrix[row][column] =
               Math.min(
@@ -697,10 +786,16 @@
         }
       }
 
-      return matrix[a.length][b.length];
+      return matrix[
+        a.length
+      ][
+        b.length
+      ];
     }
 
-    function allowedMistakes(length) {
+    function allowedMistakes(
+      length
+    ) {
       if (length <= 4) {
         return 1;
       }
@@ -764,10 +859,12 @@
     }
 
     function shuffle(items) {
-      const copy = [...items];
+      const copy =
+        [...items];
 
       for (
-        let index = copy.length - 1;
+        let index =
+          copy.length - 1;
         index > 0;
         index -= 1
       ) {
@@ -789,11 +886,126 @@
       return copy;
     }
 
-    function preloadImages() {
-      players.forEach(player => {
-        const image = new Image();
-        image.src = player.image;
-      });
+    function seededShuffle(
+      items,
+      seedText
+    ) {
+      let seed = 0;
+
+      for (
+        const character
+        of seedText
+      ) {
+        seed =
+          (
+            seed * 31 +
+            character.charCodeAt(0)
+          ) >>> 0;
+      }
+
+      function random() {
+        seed +=
+          0x6D2B79F5;
+
+        let value =
+          seed;
+
+        value =
+          Math.imul(
+            value ^
+              value >>> 15,
+            value | 1
+          );
+
+        value ^=
+          value +
+          Math.imul(
+            value ^
+              value >>> 7,
+            value | 61
+          );
+
+        return (
+          (
+            value ^
+            value >>> 14
+          ) >>> 0
+        ) /
+        4294967296;
+      }
+
+      const copy =
+        [...items];
+
+      for (
+        let index =
+          copy.length - 1;
+        index > 0;
+        index -= 1
+      ) {
+        const randomIndex =
+          Math.floor(
+            random() *
+            (index + 1)
+          );
+
+        [
+          copy[index],
+          copy[randomIndex]
+        ] = [
+          copy[randomIndex],
+          copy[index]
+        ];
+      }
+
+      return copy;
+    }
+
+    function todayKey() {
+      return new Date()
+        .toISOString()
+        .slice(0, 10);
+    }
+
+    function preloadImages(
+      selectedPlayers
+    ) {
+      selectedPlayers.forEach(
+        player => {
+          const image =
+            new Image();
+
+          image.src =
+            player.image;
+        }
+      );
+    }
+
+    function availableEras() {
+      return [
+        ...new Set(
+          players.map(
+            player =>
+              player.era
+          )
+        )
+      ].sort();
+    }
+
+    function playersForEra(
+      era
+    ) {
+      if (
+        era ===
+        "All Eras"
+      ) {
+        return [...players];
+      }
+
+      return players.filter(
+        player =>
+          player.era === era
+      );
     }
 
     function showHome() {
@@ -801,7 +1013,7 @@
         <section class="screen">
           <div class="hero">
             <p class="eyebrow">
-              REAL PREMIER LEAGUE NOSTALGIA
+              REAL FOOTBALL NOSTALGIA
             </p>
 
             <h1>
@@ -810,36 +1022,344 @@
             </h1>
 
             <p class="muted">
-              Five real footballers.
-              Every question now uses a proper
-              face-centred photograph.
+              Guess real footballers
+              from progressively clearer
+              face reveals.
             </p>
 
-            <button
-              id="startButton"
-              class="primary"
-              type="button"
-            >
-              Play improved face pack
-            </button>
+            <div class="button-stack">
+              <button
+                id="newGameButton"
+                class="primary"
+                type="button"
+              >
+                Start a new game
+              </button>
+
+              <button
+                id="dailyButton"
+                class="secondary"
+                type="button"
+              >
+                Play Daily Five
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span>
+                Best score
+              </span>
+
+              <strong>
+                ${
+                  stats.bestScore
+                    .toLocaleString()
+                }
+              </strong>
+            </article>
+
+            <article class="stat-card">
+              <span>
+                Games played
+              </span>
+
+              <strong>
+                ${stats.gamesPlayed}
+              </strong>
+            </article>
+
+            <article class="stat-card">
+              <span>
+                Players found
+              </span>
+
+              <strong>
+                ${stats.correctPlayers}
+              </strong>
+            </article>
+
+            <article class="stat-card">
+              <span>
+                Forgotten
+              </span>
+
+              <strong>
+                ${stats.forgottenCount}
+              </strong>
+            </article>
+          </div>
+
+          <div class="notice">
+            Current test database:
+            ${players.length}
+            verified face photographs.
           </div>
         </section>
       `;
 
       document
-        .getElementById("startButton")
+        .getElementById(
+          "newGameButton"
+        )
         .addEventListener(
           "click",
-          startGame
+          showSetup
+        );
+
+      document
+        .getElementById(
+          "dailyButton"
+        )
+        .addEventListener(
+          "click",
+          startDailyGame
         );
     }
 
-    function startGame() {
-      preloadImages();
+    function showSetup() {
+      const eras =
+        availableEras();
+
+      screen.innerHTML = `
+        <section class="screen">
+          <button
+            id="backButton"
+            class="ghost"
+            type="button"
+          >
+            ← Back home
+          </button>
+
+          <h2>
+            Build your game
+          </h2>
+
+          <div class="setup-card">
+            <div class="field">
+              <label for="eraSelect">
+                Football era
+              </label>
+
+              <select id="eraSelect">
+                <option>
+                  All Eras
+                </option>
+
+                ${eras
+                  .map(
+                    era => `
+                      <option>
+                        ${era}
+                      </option>
+                    `
+                  )
+                  .join("")}
+              </select>
+            </div>
+
+            <div class="field">
+              <label>
+                Game length
+              </label>
+
+              <div class="length-buttons">
+                <button
+                  class="
+                    length-button
+                    active
+                  "
+                  data-length="5"
+                  type="button"
+                >
+                  Quick game
+                  <small>
+                    5 players
+                  </small>
+                </button>
+
+                <button
+                  class="length-button"
+                  data-length="10"
+                  type="button"
+                  ${
+                    players.length < 10
+                      ? "disabled"
+                      : ""
+                  }
+                >
+                  Standard
+                  <small>
+                    10 players
+                  </small>
+                </button>
+              </div>
+            </div>
+
+            ${
+              players.length < 10
+                ? `
+                  <div class="notice">
+                    Standard mode unlocks
+                    automatically when the
+                    database reaches 10 players.
+                  </div>
+                `
+                : ""
+            }
+
+            <button
+              id="startGameButton"
+              class="primary"
+              type="button"
+            >
+              Start game
+            </button>
+          </div>
+        </section>
+      `;
+
+      selectedLength = 5;
+
+      const eraSelect =
+        document.getElementById(
+          "eraSelect"
+        );
+
+      eraSelect.value =
+        selectedEra;
+
+      document
+        .getElementById(
+          "backButton"
+        )
+        .addEventListener(
+          "click",
+          showHome
+        );
+
+      document
+        .querySelectorAll(
+          ".length-button"
+        )
+        .forEach(
+          button => {
+            button.addEventListener(
+              "click",
+              () => {
+                if (
+                  button.disabled
+                ) {
+                  return;
+                }
+
+                document
+                  .querySelectorAll(
+                    ".length-button"
+                  )
+                  .forEach(
+                    item =>
+                      item.classList.remove(
+                        "active"
+                      )
+                  );
+
+                button.classList.add(
+                  "active"
+                );
+
+                selectedLength =
+                  Number(
+                    button.dataset.length
+                  );
+              }
+            );
+          }
+        );
+
+      document
+        .getElementById(
+          "startGameButton"
+        )
+        .addEventListener(
+          "click",
+          () => {
+            selectedEra =
+              eraSelect.value;
+
+            startGame(
+              false
+            );
+          }
+        );
+    }
+
+    function startDailyGame() {
+      selectedEra =
+        "All Eras";
+
+      selectedLength =
+        Math.min(
+          5,
+          players.length
+        );
+
+      startGame(
+        true
+      );
+    }
+
+    function startGame(
+      daily
+    ) {
+      let availablePlayers =
+        playersForEra(
+          selectedEra
+        );
+
+      if (
+        availablePlayers.length === 0
+      ) {
+        availablePlayers =
+          [...players];
+      }
+
+      const chosenOrder =
+        daily
+          ? seededShuffle(
+              availablePlayers,
+              todayKey()
+            )
+          : shuffle(
+              availablePlayers
+            );
+
+      const chosenPlayers =
+        chosenOrder
+          .slice(
+            0,
+            Math.min(
+              selectedLength,
+              chosenOrder.length
+            )
+          )
+          .sort(
+            (
+              first,
+              second
+            ) =>
+              first.difficulty -
+              second.difficulty
+          );
+
+      preloadImages(
+        chosenPlayers
+      );
 
       game = {
         players:
-          shuffle(players),
+          chosenPlayers,
 
         index: 0,
         stage: 0,
@@ -847,7 +1367,8 @@
         lives: 3,
         correct: 0,
         wrongGuesses: 0,
-        outcomes: []
+        outcomes: [],
+        daily
       };
 
       showRound();
@@ -876,12 +1397,16 @@
         game.stage === 4
           ? `
             <div class="final-clue">
-              <strong>Final clue</strong><br>
+              <strong>
+                Final clue
+              </strong>
+              <br>
+
               ${player.nationality}
               ·
               ${player.position}
               ·
-              ${player.clubs}
+              ${player.clubs.join(", ")}
             </div>
           `
           : "";
@@ -976,17 +1501,20 @@
 
           <div class="meter">
             ${[0, 1, 2, 3, 4]
-              .map(stage => `
-                <span
-                  class="
-                    ${
-                      stage <= game.stage
-                        ? "active"
-                        : ""
-                    }
-                  "
-                ></span>
-              `)
+              .map(
+                stage => `
+                  <span
+                    class="
+                      ${
+                        stage <=
+                        game.stage
+                          ? "active"
+                          : ""
+                      }
+                    "
+                  ></span>
+                `
+              )
               .join("")}
           </div>
 
@@ -1114,7 +1642,10 @@
             "Correct.";
 
           setTimeout(
-            () => showReveal(true),
+            () =>
+              showReveal(
+                true
+              ),
             250
           );
 
@@ -1154,7 +1685,10 @@
           });
 
           setTimeout(
-            () => showReveal(false),
+            () =>
+              showReveal(
+                false
+              ),
             350
           );
         }
@@ -1173,7 +1707,8 @@
         "keydown",
         event => {
           if (
-            event.key === "Enter"
+            event.key ===
+            "Enter"
           ) {
             submitGuess();
           }
@@ -1210,14 +1745,18 @@
               stage: game.stage
             });
 
-            showReveal(false);
+            showReveal(
+              false
+            );
           }
         );
 
       guessInput.focus();
     }
 
-    function showReveal(correct) {
+    function showReveal(
+      correct
+    ) {
       const player =
         currentPlayer();
 
@@ -1256,11 +1795,21 @@
           <div class="details">
             <div class="detail-row">
               <span>
-                Premier League club(s)
+                Club(s)
               </span>
 
               <strong>
-                ${player.clubs}
+                ${player.clubs.join(", ")}
+              </strong>
+            </div>
+
+            <div class="detail-row">
+              <span>
+                Era
+              </span>
+
+              <strong>
+                ${player.era}
               </strong>
             </div>
 
@@ -1283,6 +1832,7 @@
               ${player.credit}.
               Cropped, blurred and zoomed
               for gameplay.
+
               <br><br>
 
               <a
@@ -1325,6 +1875,9 @@
         .addEventListener(
           "click",
           event => {
+            stats.forgottenCount += 1;
+            saveStats();
+
             event.currentTarget
               .textContent =
                 "💭 That one got me";
@@ -1352,22 +1905,44 @@
     }
 
     function showResults() {
-      const grid =
+      const resultGrid =
         game.outcomes
-          .map(outcome => {
-            if (!outcome.correct) {
-              return "🟥";
-            }
+          .map(
+            outcome => {
+              if (
+                !outcome.correct
+              ) {
+                return "🟥";
+              }
 
-            if (
-              outcome.stage <= 1
-            ) {
-              return "🟩";
-            }
+              if (
+                outcome.stage <= 1
+              ) {
+                return "🟩";
+              }
 
-            return "🟨";
-          })
+              return "🟨";
+            }
+          )
           .join("");
+
+      stats.gamesPlayed += 1;
+
+      stats.correctPlayers +=
+        game.correct;
+
+      stats.bestScore =
+        Math.max(
+          stats.bestScore,
+          game.score
+        );
+
+      if (game.daily) {
+        stats.lastDailyDate =
+          todayKey();
+      }
+
+      saveStats();
 
       screen.innerHTML = `
         <section class="screen">
@@ -1393,16 +1968,26 @@
             </p>
 
             <div class="result-grid">
-              ${grid}
+              ${resultGrid}
             </div>
 
-            <button
-              id="againButton"
-              class="primary"
-              type="button"
-            >
-              Play again
-            </button>
+            <div class="button-stack">
+              <button
+                id="againButton"
+                class="primary"
+                type="button"
+              >
+                Play again
+              </button>
+
+              <button
+                id="homeButton"
+                class="secondary"
+                type="button"
+              >
+                Return home
+              </button>
+            </div>
           </div>
         </section>
       `;
@@ -1413,11 +1998,41 @@
         )
         .addEventListener(
           "click",
-          startGame
+          showSetup
+        );
+
+      document
+        .getElementById(
+          "homeButton"
+        )
+        .addEventListener(
+          "click",
+          showHome
         );
     }
 
-    showHome();
+    updateHeader();
+
+    if (
+      players.length === 0
+    ) {
+      screen.innerHTML = `
+        <section class="screen">
+          <div class="results-card">
+            <h1>
+              Player data missing
+            </h1>
+
+            <p class="muted">
+              Check that players.js
+              is saved beside index.html.
+            </p>
+          </div>
+        </section>
+      `;
+    } else {
+      showHome();
+    }
   </script>
 </body>
 </html>
