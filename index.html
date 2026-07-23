@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forgotten Footballer</title>
+
+  <style>
+    :root {
+      --background: #07130e;
+      --panel: #10251b;
+      --panel-light: #183529;
+      --green: #50dd98;
+      --text: #f5efdf;
+      --muted: #a7b6ae;
+      --danger: #ff766e;
+      --border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(80, 221, 152, 0.16), transparent 35%),
+        var(--background);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      width: min(100%, 520px);
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      font-weight: bold;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: #052016;
+      background: var(--green);
+      font-weight: 900;
+    }
+
+    .screen {
+      padding: 24px 0;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 42px;
+      line-height: 0.98;
+      letter-spacing: -2px;
+    }
+
+    .eyebrow {
+      margin: 0 0 9px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .hero,
+    .controls,
+    .reveal-card,
+    .results-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--panel);
+    }
+
+    .primary,
+    .secondary {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid transparent;
+      font-weight: bold;
+    }
+
+    .primary {
+      color: #062016;
+      background: var(--green);
+    }
+
+    .secondary {
+      color: var(--text);
+      background: var(--panel-light);
+      border-color: var(--border);
+    }
+
+    .game-top,
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .game-top {
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .score-row {
+      margin-bottom: 12px;
+    }
+
+    .score {
+      color: var(--green);
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .photo-frame {
+      position: relative;
+      height: 470px;
+      max-height: 62vh;
+      min-height: 350px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background: #0b1b14;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .stage-0 img {
+      transform: scale(4);
+      filter: blur(14px);
+    }
+
+    .stage-1 img {
+      transform: scale(2.5);
+      filter: blur(7px);
+    }
+
+    .stage-2 img {
+      transform: scale(1.6);
+      filter: blur(2px);
+    }
+
+    .stage-3 img {
+      transform: scale(1.08);
+      filter: none;
+    }
+
+    .stage-4 img {
+      transform: scale(1);
+      filter: none;
+    }
+
+    .chip {
+      position: absolute;
+      top: 14px;
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(5, 17, 12, 0.82);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .chip-left {
+      left: 14px;
+    }
+
+    .chip-right {
+      right: 14px;
+      color: #f4d382;
+    }
+
+    .image-error {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 30px;
+      text-align: center;
+      background: var(--panel);
+    }
+
+    .meter {
+      display: flex;
+      gap: 6px;
+      margin: 11px 0;
+    }
+
+    .meter span {
+      height: 5px;
+      flex: 1;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .meter .active {
+      background: var(--green);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px;
+      color: var(--text);
+      background: #091811;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .feedback {
+      min-height: 24px;
+      margin: 8px 0;
+      color: var(--danger);
+      font-weight: bold;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 9px;
+      margin-top: 9px;
+    }
+
+    .full-photo {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      object-position: center 20%;
+      border-radius: 24px;
+      background: #0b1b14;
+    }
+
+    .player-name {
+      margin: 16px 0 6px;
+      font-size: 38px;
+      line-height: 1;
+    }
+
+    .details {
+      margin: 16px 0;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--panel);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-row span {
+      color: var(--muted);
+    }
+
+    .detail-row strong {
+      text-align: right;
+    }
+
+    .attribution {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .big-score {
+      margin: 15px 0;
+      color: var(--green);
+      font-size: 64px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="logo">FF</div>
+      <div>Forgotten Footballer</div>
+    </header>
+
+    <div id="screen"></div>
+  </main>
+
+  <script>
+    const players = [
+      {
+        name: "Morten Gamst Pedersen",
+        answers: ["morten gamst pedersen", "gamst pedersen", "pedersen"],
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Morten_gamst_pedersen.JPG?width=900",
+        nationality: "Norway",
+        position: "Left midfielder",
+        clubs: "Blackburn Rovers",
+        fact: "Remembered for his left foot, set pieces and spectacular long-range goals.",
+        difficulty: 4,
+        credit: "Free-ers, CC BY 2.0, via Wikimedia Commons"
+      },
+      {
+        name: "Niko Kranjčar",
+        answers: ["niko kranjcar", "kranjcar"],
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Niko_Kranj%C4%8Dar.jpg?width=900",
+        nationality: "Croatia",
+        position: "Attacking midfielder",
+        clubs: "Portsmouth and Tottenham Hotspur",
+        fact: "A stylish playmaker remembered for his technique at Portsmouth and Tottenham.",
+        difficulty: 5,
+        credit: "Wikimedia Commons reusable media"
+      },
+      {
+        name: "Yakubu",
+        answers: ["yakubu", "yakubu aiyegbeni", "aiyegbeni"],
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yakubu.jpg?width=900",
+        nationality: "Nigeria",
+        position: "Striker",
+        clubs: "Portsmouth, Middlesbrough, Everton and Blackburn",
+        fact: "A powerful Premier League striker who scored consistently for several clubs.",
+        difficulty: 3,
+        credit: "Wikimedia Commons reusable media"
+      },
+      {
+        name: "Elano",
+        answers: ["elano", "elano blumer"],
+        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Elano_blumer.jpg?width=900",
+        nationality: "Brazil",
+        position: "Attacking midfielder",
+        clubs: "Manchester City",
+        fact: "A gifted Brazilian remembered for elegant passing and brilliant free-kicks.",
+        difficulty: 5,
+        credit: "Zoban, via Wikimedia Commons"
+      }
+    ];
+
+    const points = [1000, 750, 500, 300, 100];
+    const screen = document.getElementById("screen");
+
+    let game = {};
+
+    function normalise(value) {
+      return value
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9 ]/g, "")
+        .trim();
+    }
+
+    function shuffle(items) {
+      return [...items].sort(() => Math.random() - 0.5);
+    }
+
+    function showHome() {
+      screen.innerHTML = `
+        <section class="screen">
+          <div class="hero">
+            <p class="eyebrow">REAL PREMIER LEAGUE NOSTALGIA</p>
+            <h1>Know the face. Remember the name.</h1>
+            <p class="muted">
+              Guess real footballers from gradually revealed photographs.
+            </p>
+            <button id="startButton" class="primary">Play test pack</button>
+          </div>
+        </section>
+      `;
+
+      document.getElementById("startButton").addEventListener("click", startGame);
+    }
+
+    function startGame() {
+      game = {
+        players: shuffle(players),
+        index: 0,
+        stage: 0,
+        score: 0,
+        lives: 3,
+        correct: 0,
+        wrongGuesses: 0
+      };
+
+      showRound();
+    }
+
+    function currentPlayer() {
+      return game.players[game.index];
+    }
+
+    function showRound() {
+      if (game.index >= game.players.length || game.lives <= 0) {
+        showResults();
+        return;
+      }
+
+      const player = currentPlayer();
+
+      screen.innerHTML = `
+        <section class="screen">
+          <div class="game-top">
+            <span>Player ${game.index + 1} of ${game.players.length}</span>
+            <span>${"⚽".repeat(game.lives)}${"○".repeat(3 - game.lives)}</span>
+          </div>
+
+          <div class="score-row">
+            <span class="muted">Run score</span>
+            <span class="score">${game.score}</span>
+          </div>
+
+          <div class="photo-frame stage-${game.stage}">
+            <img id="playerImage" src="${player.image}" alt="Mystery footballer">
+            <div id="imageError" class="image-error">
+              <div>
+                <strong>The image did not load.</strong>
+                <p class="muted">Refresh the page and try again.</p>
+              </div>
+            </div>
+
+            <span class="chip chip-left">Reveal ${game.stage + 1} of 5</span>
+            <span class="chip chip-right">${points[game.stage]} points</span>
+          </div>
+
+          <div class="meter">
+            ${[0, 1, 2, 3, 4]
+              .map(stage => `<span class="${stage <= game.stage ? "active" : ""}"></span>`)
+              .join("")}
+          </div>
+
+          <div class="controls">
+            <label for="guess">Who is the footballer?</label>
+            <input id="guess" type="text" autocomplete="off" placeholder="Type a name or surname">
+
+            <div id="feedback" class="feedback"></div>
+
+            <button id="guessButton" class="primary">Lock in answer</button>
+
+            <div class="button-row">
+              <button id="revealButton" class="secondary">
+                ${game.stage === 4 ? "No more reveals" : "Reveal more"}
+              </button>
+              <button id="skipButton" class="secondary">Skip</button>
+            </div>
+          </div>
+        </section>
+      `;
+
+      const image = document.getElementById("playerImage");
+
+      image.addEventListener("error", () => {
+        image.style.display = "none";
+        document.getElementById("imageError").style.display = "grid";
+      });
+
+      const guessInput = document.getElementById("guess");
+
+      function submitGuess() {
+        const guess = normalise(guessInput.value);
+        const correct = player.answers.some(answer => normalise(answer) === guess);
+
+        if (correct) {
+          game.score += points[game.stage];
+          game.correct += 1;
+          showReveal(true);
+        } else {
+          game.wrongGuesses += 1;
+          game.score = Math.max(0, game.score - 50);
+          guessInput.value = "";
+
+          document.getElementById("feedback").textContent =
+            game.wrongGuesses >= 3
+              ? "Three incorrect guesses."
+              : "Not quite. Try again or reveal more.";
+
+          if (game.wrongGuesses >= 3) {
+            game.lives -= 1;
+            showReveal(false);
+          }
+        }
+      }
+
+      document.getElementById("guessButton").addEventListener("click", submitGuess);
+
+      guessInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          submitGuess();
+        }
+      });
+
+      document.getElementById("revealButton").addEventListener("click", () => {
+        if (game.stage < 4) {
+          game.stage += 1;
+          showRound();
+        }
+      });
+
+      document.getElementById("skipButton").addEventListener("click", () => {
+        game.lives -= 1;
+        showReveal(false);
+      });
+    }
+
+    function showReveal(correct) {
+      const player = currentPlayer();
+
+      screen.innerHTML = `
+        <section class="screen">
+          <p class="eyebrow">${correct ? "YOU REMEMBERED HIM" : "PLAYER MISSED"}</p>
+
+          <img class="full-photo" src="${player.image}" alt="${player.name}">
+
+          <h1 class="player-name">${player.name}</h1>
+          <p class="muted">${player.nationality} · ${player.position}</p>
+
+          <div class="details">
+            <div class="detail-row">
+              <span>Premier League club(s)</span>
+              <strong>${player.clubs}</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Difficulty</span>
+              <strong>${player.difficulty}/10</strong>
+            </div>
+
+            <p class="muted">${player.fact}</p>
+
+            <p class="attribution">
+              Photograph: ${player.credit}. Cropped, blurred and zoomed for gameplay.
+            </p>
+          </div>
+
+          <button id="nextButton" class="primary">
+            ${game.index === game.players.length - 1 ? "See final score" : "Next player"}
+          </button>
+        </section>
+      `;
+
+      document.getElementById("nextButton").addEventListener("click", () => {
+        game.index += 1;
+        game.stage = 0;
+        game.wrongGuesses = 0;
+        showRound();
+      });
+    }
+
+    function showResults() {
+      screen.innerHTML = `
+        <section class="screen">
+          <div class="results-card">
+            <p class="eyebrow">FULL TIME</p>
+            <h1>Terrace knowledge tested.</h1>
+            <div class="big-score">${game.score}</div>
+            <p class="muted">
+              You recognised ${game.correct} of ${game.players.length} footballers.
+            </p>
+            <button id="againButton" class="primary">Play again</button>
+          </div>
+        </section>
+      `;
+
+      document.getElementById("againButton").addEventListener("click", startGame);
+    }
+
+    showHome();
+  </script>
+</body>
+</html>
