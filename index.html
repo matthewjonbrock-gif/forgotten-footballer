@@ -2,17 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
-  <meta
-    name="theme-color"
-    content="#07130e"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07130e">
   <title>Forgotten Footballer</title>
 
   <style>
@@ -28,54 +19,38 @@
       --border: rgba(255, 255, 255, 0.12);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-
       background:
-        radial-gradient(
-          circle at top,
-          rgba(80, 221, 152, 0.16),
-          transparent 35%
-        ),
+        radial-gradient(circle at top, rgba(80, 221, 152, 0.16), transparent 35%),
         var(--background);
     }
 
     button,
     input,
-    select {
-      font: inherit;
-    }
+    select { font: inherit; }
 
-    button {
-      cursor: pointer;
-    }
+    button { cursor: pointer; }
 
     button:disabled {
       cursor: not-allowed;
-      opacity: 0.45;
+      opacity: 0.48;
     }
 
     button:focus-visible,
     input:focus-visible,
     select:focus-visible {
-      outline: 3px solid rgba(80, 221, 152, 0.5);
+      outline: 3px solid rgba(80, 221, 152, 0.52);
       outline-offset: 2px;
     }
 
     .app {
-      width: min(100%, 540px);
+      width: min(100%, 560px);
       margin: 0 auto;
       padding: 16px;
     }
@@ -85,7 +60,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
@@ -94,54 +68,45 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .logo {
       width: 42px;
       height: 42px;
-
       display: grid;
       place-items: center;
-
       border-radius: 13px;
-
       color: #052016;
       background: var(--green);
-
       font-weight: 900;
     }
 
     .header-score {
       color: var(--muted);
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 800;
     }
 
-    .screen {
-      padding: 24px 0;
-    }
+    .screen { padding: 24px 0; }
 
     h1 {
       margin: 0 0 12px;
-
       font-size: 42px;
       line-height: 0.98;
       letter-spacing: -2px;
     }
 
     h2 {
-      margin: 24px 0 12px;
-      font-size: 21px;
+      margin: 22px 0 12px;
+      font-size: 23px;
     }
 
     .eyebrow {
       margin: 0 0 9px;
-
       color: var(--green);
-
       font-size: 12px;
-      font-weight: bold;
+      font-weight: 800;
       letter-spacing: 2px;
     }
 
@@ -154,12 +119,11 @@
     .setup-card,
     .controls,
     .details,
-    .results-card {
+    .results-card,
+    .collection-card {
       padding: 18px;
-
       border: 1px solid var(--border);
       border-radius: 24px;
-
       background: var(--panel);
     }
 
@@ -169,13 +133,10 @@
     .forgotten-button {
       width: 100%;
       min-height: 52px;
-
       padding: 12px;
-
       border: 1px solid transparent;
       border-radius: 16px;
-
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .primary {
@@ -197,9 +158,7 @@
 
     .forgotten-button {
       margin-bottom: 10px;
-
       color: var(--gold);
-
       background: rgba(244, 211, 130, 0.08);
       border-color: rgba(244, 211, 130, 0.35);
     }
@@ -213,76 +172,73 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-
       margin-top: 12px;
     }
 
     .stat-card {
       padding: 14px;
-
       border: 1px solid var(--border);
       border-radius: 17px;
-
       background: var(--panel);
     }
 
     .stat-card span {
       display: block;
       margin-bottom: 5px;
-
       color: var(--muted);
       font-size: 13px;
     }
 
-    .stat-card strong {
-      font-size: 24px;
+    .stat-card strong { font-size: 23px; }
+
+    .progress-track {
+      height: 9px;
+      overflow: hidden;
+      margin-top: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
     }
 
-    .field {
-      margin-bottom: 17px;
+    .progress-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
     }
+
+    .field { margin-bottom: 17px; }
 
     label {
       display: block;
-
       margin-bottom: 8px;
-
       color: var(--muted);
-      font-weight: bold;
+      font-weight: 800;
     }
 
     select,
     input {
       width: 100%;
       min-height: 52px;
-
       padding: 12px;
-
       color: var(--text);
       background: #091811;
-
       border: 1px solid var(--border);
       border-radius: 15px;
     }
 
     .length-buttons {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 9px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
     }
 
     .length-button {
-      min-height: 70px;
-
-      padding: 10px;
-
+      min-height: 74px;
+      padding: 9px 5px;
       color: var(--muted);
       background: #0a1b13;
-
       border: 1px solid var(--border);
       border-radius: 16px;
-
-      font-weight: bold;
+      font-weight: 800;
     }
 
     .length-button small {
@@ -293,24 +249,30 @@
 
     .length-button.active {
       color: var(--text);
-
       background: rgba(80, 221, 152, 0.13);
       border-color: rgba(80, 221, 152, 0.55);
     }
 
-    .notice {
+    .notice,
+    .new-discovery {
       margin: 14px 0;
       padding: 13px;
-
-      color: var(--muted);
-
       border: 1px solid var(--border);
       border-radius: 15px;
-
-      background: rgba(255, 255, 255, 0.03);
-
       font-size: 14px;
       line-height: 1.5;
+    }
+
+    .notice {
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .new-discovery {
+      color: var(--green);
+      background: rgba(80, 221, 152, 0.08);
+      border-color: rgba(80, 221, 152, 0.34);
+      font-weight: 800;
     }
 
     .game-top,
@@ -325,83 +287,62 @@
       color: var(--muted);
     }
 
-    .score-row {
-      margin-bottom: 12px;
-    }
+    .score-row { margin-bottom: 12px; }
 
     .score {
       color: var(--green);
       font-size: 32px;
-      font-weight: bold;
+      font-weight: 900;
     }
 
     .photo-frame {
       position: relative;
-
       height: 470px;
       min-height: 350px;
       max-height: 62vh;
-
       overflow: hidden;
-
       border: 1px solid var(--border);
       border-radius: 26px;
-
       background: #0b1b14;
     }
 
     .player-photo {
       width: 100%;
       height: 100%;
-
       object-fit: cover;
-
-      object-position:
-        var(--focus-x, 50%)
-        var(--focus-y, 35%);
-
-      transform-origin:
-        var(--focus-x, 50%)
-        var(--focus-y, 35%);
-
-      transition:
-        transform 0.5s ease,
-        filter 0.5s ease;
+      object-position: var(--focus-x, 50%) var(--focus-y, 35%);
+      transform-origin: var(--focus-x, 50%) var(--focus-y, 35%);
+      transition: transform 0.48s ease, filter 0.48s ease;
+      will-change: transform, filter;
     }
 
+    /*
+      Each player has a tested base zoom.
+      Reveal stages add a small amount to that zoom,
+      so full-body source images still finish as fair face crops.
+    */
     .stage-0 .player-photo {
-      transform: scale(1.82);
-
-      filter:
-        blur(11px)
-        brightness(0.82)
-        saturate(0.72);
+      transform: scale(calc(var(--zoom, 1) + 0.55));
+      filter: blur(12px) brightness(0.82) saturate(0.74);
     }
 
     .stage-1 .player-photo {
-      transform: scale(1.55);
-
-      filter:
-        blur(7px)
-        brightness(0.9)
-        saturate(0.82);
+      transform: scale(calc(var(--zoom, 1) + 0.34));
+      filter: blur(7px) brightness(0.9) saturate(0.84);
     }
 
     .stage-2 .player-photo {
-      transform: scale(1.32);
-
-      filter:
-        blur(4px)
-        saturate(0.92);
+      transform: scale(calc(var(--zoom, 1) + 0.19));
+      filter: blur(4px) saturate(0.93);
     }
 
     .stage-3 .player-photo {
-      transform: scale(1.14);
-      filter: blur(1.3px);
+      transform: scale(calc(var(--zoom, 1) + 0.08));
+      filter: blur(1.2px);
     }
 
     .stage-4 .player-photo {
-      transform: scale(1);
+      transform: scale(var(--zoom, 1));
       filter: none;
     }
 
@@ -409,23 +350,16 @@
       position: absolute;
       top: 14px;
       z-index: 3;
-
       padding: 8px 11px;
-
       border: 1px solid var(--border);
       border-radius: 999px;
-
-      background: rgba(5, 17, 12, 0.85);
-
+      background: rgba(5, 17, 12, 0.86);
       font-size: 12px;
-      font-weight: bold;
-
+      font-weight: 800;
       backdrop-filter: blur(8px);
     }
 
-    .chip-left {
-      left: 14px;
-    }
+    .chip-left { left: 14px; }
 
     .chip-right {
       right: 14px;
@@ -436,12 +370,9 @@
       position: absolute;
       inset: 0;
       z-index: 2;
-
       display: none;
       place-items: center;
-
       padding: 30px;
-
       text-align: center;
       background: var(--panel);
     }
@@ -449,146 +380,106 @@
     .meter {
       display: flex;
       gap: 6px;
-
       margin: 11px 0;
     }
 
     .meter span {
       height: 5px;
       flex: 1;
-
       border-radius: 20px;
-
       background: rgba(255, 255, 255, 0.12);
     }
 
-    .meter .active {
-      background: var(--green);
-    }
+    .meter .active { background: var(--green); }
 
     .final-clue {
       margin-bottom: 11px;
       padding: 14px;
-
       color: var(--gold);
-
       border: 1px solid rgba(244, 211, 130, 0.3);
       border-radius: 16px;
-
       background: rgba(244, 211, 130, 0.07);
-
       line-height: 1.45;
     }
 
     .feedback {
       min-height: 24px;
-
       margin: 8px 0;
-
       color: var(--danger);
-      font-weight: bold;
+      font-weight: 800;
     }
 
-    .feedback.success {
-      color: var(--green);
-    }
+    .feedback.success { color: var(--green); }
 
     .button-row {
       display: grid;
       grid-template-columns: 1.3fr 0.7fr;
       gap: 9px;
-
       margin-top: 9px;
     }
 
     .full-photo {
       width: 100%;
       height: 420px;
-
       object-fit: cover;
-
       border: 1px solid var(--border);
       border-radius: 24px;
-
       background: #0b1b14;
     }
 
     .player-name {
       margin: 16px 0 6px;
-
       font-size: 38px;
       line-height: 1;
     }
 
-    .details {
-      margin: 16px 0;
-    }
+    .details { margin: 16px 0; }
 
     .detail-row {
       display: flex;
       justify-content: space-between;
       gap: 20px;
-
       padding: 10px 0;
-
       border-bottom: 1px solid var(--border);
     }
 
-    .detail-row span {
-      color: var(--muted);
-    }
+    .detail-row span { color: var(--muted); }
 
-    .detail-row strong {
-      text-align: right;
-    }
+    .detail-row strong { text-align: right; }
 
     .attribution {
       margin-top: 16px;
-
       color: var(--muted);
-
       font-size: 12px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
-    .attribution a {
-      color: var(--green);
-    }
+    .attribution a { color: var(--green); }
 
     .big-score {
       margin: 15px 0;
-
       color: var(--green);
-
       font-size: 64px;
-      font-weight: bold;
+      font-weight: 900;
     }
 
     .result-grid {
       margin: 18px 0;
-
       font-size: 28px;
       letter-spacing: 4px;
+      overflow-wrap: anywhere;
     }
 
     @media (min-width: 500px) {
-      .stats-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
     }
 
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 36px;
-      }
-
-      .photo-frame {
-        min-height: 330px;
-      }
-
-      .full-photo {
-        height: 380px;
-      }
+    @media (max-width: 420px) {
+      h1 { font-size: 36px; }
+      .photo-frame { min-height: 330px; }
+      .full-photo { height: 380px; }
+      .length-buttons { grid-template-columns: 1fr; }
+      .length-button { min-height: 58px; }
     }
   </style>
 </head>
@@ -601,12 +492,7 @@
         <div>Forgotten Footballer</div>
       </div>
 
-      <div
-        id="headerBest"
-        class="header-score"
-      >
-        🏆 0
-      </div>
+      <div id="headerBest" class="header-score">🏆 0</div>
     </header>
 
     <div id="screen"></div>
@@ -615,269 +501,195 @@
   <script src="players.js"></script>
 
   <script>
-    const players =
-      Array.isArray(window.PLAYERS)
-        ? window.PLAYERS
-        : [];
-
-    const points = [
-      1000,
-      750,
-      500,
-      300,
-      100
-    ];
-
-    const screen =
-      document.getElementById(
-        "screen"
-      );
-
-    const headerBest =
-      document.getElementById(
-        "headerBest"
-      );
+    const players = Array.isArray(window.PLAYERS) ? window.PLAYERS : [];
+    const points = [1000, 750, 500, 300, 100];
+    const screen = document.getElementById("screen");
+    const headerBest = document.getElementById("headerBest");
 
     const defaultStats = {
+      version: 2,
       gamesPlayed: 0,
-      correctPlayers: 0,
       bestScore: 0,
-      forgottenCount: 0,
+      totalCorrectGuesses: 0,
+      discoveredPlayerIds: [],
+      forgottenPlayerIds: [],
       lastDailyDate: ""
     };
 
-    let stats =
-      loadStats();
-
-    let selectedEra =
-      "All Eras";
-
-    let selectedLength =
-      5;
-
+    let stats = loadStats();
+    let selectedEra = "All Eras";
+    let selectedLength = 5;
     let game = {};
+
+    function cleanIdArray(value) {
+      if (!Array.isArray(value)) return [];
+      return [...new Set(value.filter(item => typeof item === "string"))];
+    }
 
     function loadStats() {
       try {
-        const saved =
-          JSON.parse(
-            localStorage.getItem(
-              "forgottenFootballerStats"
-            )
-          );
+        const saved = JSON.parse(
+          localStorage.getItem("forgottenFootballerStats")
+        ) || {};
 
+        /*
+          Older versions stored only a running correct-answer total.
+          We cannot know which players created that number, so unique
+          discoveries start accurately from this version onwards.
+        */
         return {
           ...defaultStats,
-          ...saved
+          gamesPlayed: Number(saved.gamesPlayed) || 0,
+          bestScore: Number(saved.bestScore) || 0,
+          totalCorrectGuesses:
+            Number(saved.totalCorrectGuesses ?? saved.correctPlayers) || 0,
+          discoveredPlayerIds: cleanIdArray(saved.discoveredPlayerIds),
+          forgottenPlayerIds: cleanIdArray(saved.forgottenPlayerIds),
+          lastDailyDate:
+            typeof saved.lastDailyDate === "string"
+              ? saved.lastDailyDate
+              : ""
         };
       } catch {
-        return {
-          ...defaultStats
-        };
+        return { ...defaultStats };
       }
     }
 
     function saveStats() {
-      localStorage.setItem(
-        "forgottenFootballerStats",
-        JSON.stringify(stats)
-      );
+      try {
+        localStorage.setItem(
+          "forgottenFootballerStats",
+          JSON.stringify(stats)
+        );
+      } catch {
+        /* The game still works when browser storage is unavailable. */
+      }
 
       updateHeader();
     }
 
+    function validUniqueIds(ids) {
+      const validIds = new Set(players.map(player => player.id));
+      return cleanIdArray(ids).filter(id => validIds.has(id));
+    }
+
+    function discoveredCount() {
+      return validUniqueIds(stats.discoveredPlayerIds).length;
+    }
+
+    function forgottenCount() {
+      return validUniqueIds(stats.forgottenPlayerIds).length;
+    }
+
     function updateHeader() {
-      headerBest.textContent =
-        "🏆 " +
-        stats.bestScore.toLocaleString();
+      headerBest.textContent = "🏆 " + stats.bestScore.toLocaleString();
+    }
+
+    function recordDiscovery(playerId) {
+      if (stats.discoveredPlayerIds.includes(playerId)) return false;
+
+      stats.discoveredPlayerIds.push(playerId);
+      stats.discoveredPlayerIds = cleanIdArray(stats.discoveredPlayerIds);
+      saveStats();
+      return true;
+    }
+
+    function recordForgotten(playerId) {
+      if (stats.forgottenPlayerIds.includes(playerId)) return false;
+
+      stats.forgottenPlayerIds.push(playerId);
+      stats.forgottenPlayerIds = cleanIdArray(stats.forgottenPlayerIds);
+      saveStats();
+      return true;
     }
 
     function normalise(value) {
       return String(value)
         .toLowerCase()
         .normalize("NFD")
-        .replace(
-          /[\u0300-\u036f]/g,
-          ""
-        )
-        .replace(
-          /[^a-z0-9]/g,
-          ""
-        );
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
     }
 
-    function editDistance(
-      first,
-      second
-    ) {
-      const a =
-        normalise(first);
+    function editDistance(first, second) {
+      const a = normalise(first);
+      const b = normalise(second);
 
-      const b =
-        normalise(second);
+      const matrix = Array.from(
+        { length: a.length + 1 },
+        () => Array(b.length + 1).fill(0)
+      );
 
-      const matrix =
-        Array.from(
-          {
-            length:
-              a.length + 1
-          },
-          () =>
-            Array(
-              b.length + 1
-            ).fill(0)
-        );
-
-      for (
-        let row = 0;
-        row <= a.length;
-        row += 1
-      ) {
-        matrix[row][0] =
-          row;
+      for (let row = 0; row <= a.length; row += 1) {
+        matrix[row][0] = row;
       }
 
-      for (
-        let column = 0;
-        column <= b.length;
-        column += 1
-      ) {
-        matrix[0][column] =
-          column;
+      for (let column = 0; column <= b.length; column += 1) {
+        matrix[0][column] = column;
       }
 
-      for (
-        let row = 1;
-        row <= a.length;
-        row += 1
-      ) {
-        for (
-          let column = 1;
-          column <= b.length;
-          column += 1
-        ) {
-          const cost =
-            a[row - 1] ===
-            b[column - 1]
-              ? 0
-              : 1;
+      for (let row = 1; row <= a.length; row += 1) {
+        for (let column = 1; column <= b.length; column += 1) {
+          const cost = a[row - 1] === b[column - 1] ? 0 : 1;
 
-          matrix[row][column] =
-            Math.min(
-              matrix[row - 1][column] + 1,
-              matrix[row][column - 1] + 1,
-              matrix[row - 1][column - 1] + cost
-            );
+          matrix[row][column] = Math.min(
+            matrix[row - 1][column] + 1,
+            matrix[row][column - 1] + 1,
+            matrix[row - 1][column - 1] + cost
+          );
 
           if (
             row > 1 &&
             column > 1 &&
-            a[row - 1] ===
-              b[column - 2] &&
-            a[row - 2] ===
-              b[column - 1]
+            a[row - 1] === b[column - 2] &&
+            a[row - 2] === b[column - 1]
           ) {
-            matrix[row][column] =
-              Math.min(
-                matrix[row][column],
-                matrix[row - 2][column - 2] + 1
-              );
-          }
-        }
-      }
-
-      return matrix[
-        a.length
-      ][
-        b.length
-      ];
-    }
-
-    function allowedMistakes(
-      length
-    ) {
-      if (length <= 4) {
-        return 1;
-      }
-
-      if (length <= 7) {
-        return 2;
-      }
-
-      if (length <= 10) {
-        return 3;
-      }
-
-      return 4;
-    }
-
-    function answerIsCorrect(
-      guess,
-      player
-    ) {
-      const cleanedGuess =
-        normalise(guess);
-
-      if (!cleanedGuess) {
-        return false;
-      }
-
-      return player.answers.some(
-        answer => {
-          const cleanedAnswer =
-            normalise(answer);
-
-          if (
-            cleanedGuess ===
-            cleanedAnswer
-          ) {
-            return true;
-          }
-
-          const allowance =
-            allowedMistakes(
-              cleanedAnswer.length
+            matrix[row][column] = Math.min(
+              matrix[row][column],
+              matrix[row - 2][column - 2] + 1
             );
-
-          if (
-            Math.abs(
-              cleanedGuess.length -
-              cleanedAnswer.length
-            ) > allowance
-          ) {
-            return false;
           }
-
-          return (
-            editDistance(
-              cleanedGuess,
-              cleanedAnswer
-            ) <= allowance
-          );
         }
-      );
+      }
+
+      return matrix[a.length][b.length];
+    }
+
+    function allowedMistakes(length) {
+      if (length <= 4) return 0;
+      if (length <= 7) return 1;
+      if (length <= 11) return 2;
+      return 3;
+    }
+
+    function answerIsCorrect(guess, player) {
+      const cleanedGuess = normalise(guess);
+      if (!cleanedGuess) return false;
+
+      return player.answers.some(answer => {
+        const cleanedAnswer = normalise(answer);
+        if (cleanedGuess === cleanedAnswer) return true;
+
+        const allowance = allowedMistakes(cleanedAnswer.length);
+        if (allowance === 0) return false;
+
+        if (
+          Math.abs(cleanedGuess.length - cleanedAnswer.length) >
+          allowance
+        ) {
+          return false;
+        }
+
+        return editDistance(cleanedGuess, cleanedAnswer) <= allowance;
+      });
     }
 
     function shuffle(items) {
-      const copy =
-        [...items];
+      const copy = [...items];
 
-      for (
-        let index =
-          copy.length - 1;
-        index > 0;
-        index -= 1
-      ) {
-        const randomIndex =
-          Math.floor(
-            Math.random() *
-            (index + 1)
-          );
-
-        [
-          copy[index],
-          copy[randomIndex]
-        ] = [
+      for (let index = copy.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [copy[index], copy[randomIndex]] = [
           copy[randomIndex],
           copy[index]
         ];
@@ -886,73 +698,28 @@
       return copy;
     }
 
-    function seededShuffle(
-      items,
-      seedText
-    ) {
+    function seededShuffle(items, seedText) {
       let seed = 0;
 
-      for (
-        const character
-        of seedText
-      ) {
-        seed =
-          (
-            seed * 31 +
-            character.charCodeAt(0)
-          ) >>> 0;
+      for (const character of seedText) {
+        seed = (seed * 31 + character.charCodeAt(0)) >>> 0;
       }
 
       function random() {
-        seed +=
-          0x6D2B79F5;
+        seed += 0x6D2B79F5;
+        let value = seed;
 
-        let value =
-          seed;
+        value = Math.imul(value ^ (value >>> 15), value | 1);
+        value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
 
-        value =
-          Math.imul(
-            value ^
-              value >>> 15,
-            value | 1
-          );
-
-        value ^=
-          value +
-          Math.imul(
-            value ^
-              value >>> 7,
-            value | 61
-          );
-
-        return (
-          (
-            value ^
-            value >>> 14
-          ) >>> 0
-        ) /
-        4294967296;
+        return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
       }
 
-      const copy =
-        [...items];
+      const copy = [...items];
 
-      for (
-        let index =
-          copy.length - 1;
-        index > 0;
-        index -= 1
-      ) {
-        const randomIndex =
-          Math.floor(
-            random() *
-            (index + 1)
-          );
-
-        [
-          copy[index],
-          copy[randomIndex]
-        ] = [
+      for (let index = copy.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(random() * (index + 1));
+        [copy[index], copy[randomIndex]] = [
           copy[randomIndex],
           copy[index]
         ];
@@ -962,258 +729,183 @@
     }
 
     function todayKey() {
-      return new Date()
-        .toISOString()
-        .slice(0, 10);
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
     }
 
-    function preloadImages(
-      selectedPlayers
-    ) {
-      selectedPlayers.forEach(
-        player => {
-          const image =
-            new Image();
+    function preloadImages(selectedPlayers) {
+      selectedPlayers.forEach(player => {
+        const image = new Image();
+        image.src = player.image;
+      });
+    }
 
-          image.src =
-            player.image;
-        }
-      );
+    function playerEras(player) {
+      if (Array.isArray(player.eras)) return player.eras;
+      return player.era ? [player.era] : [];
     }
 
     function availableEras() {
-      return [
-        ...new Set(
-          players.map(
-            player =>
-              player.era
-          )
-        )
-      ].sort();
+      return [...new Set(players.flatMap(playerEras))].sort();
     }
 
-    function playersForEra(
-      era
-    ) {
-      if (
-        era ===
-        "All Eras"
-      ) {
-        return [...players];
-      }
+    function playersForEra(era) {
+      if (era === "All Eras") return [...players];
 
-      return players.filter(
-        player =>
-          player.era === era
+      return players.filter(player =>
+        playerEras(player).includes(era)
       );
     }
 
     function showHome() {
+      const discovered = discoveredCount();
+      const progress =
+        players.length > 0
+          ? Math.round((discovered / players.length) * 100)
+          : 0;
+
+      const dailyLabel =
+        stats.lastDailyDate === todayKey()
+          ? "Replay today's Daily Five"
+          : "Play Daily Five";
+
       screen.innerHTML = `
         <section class="screen">
           <div class="hero">
-            <p class="eyebrow">
-              REAL FOOTBALL NOSTALGIA
-            </p>
+            <p class="eyebrow">REAL FOOTBALL NOSTALGIA</p>
 
-            <h1>
-              Know the face.
-              Remember the name.
-            </h1>
+            <h1>Know the face. Remember the name.</h1>
 
             <p class="muted">
-              Guess real footballers
-              from progressively clearer
+              Guess real footballers from progressively clearer
               face reveals.
             </p>
 
             <div class="button-stack">
-              <button
-                id="newGameButton"
-                class="primary"
-                type="button"
-              >
+              <button id="newGameButton" class="primary" type="button">
                 Start a new game
               </button>
 
-              <button
-                id="dailyButton"
-                class="secondary"
-                type="button"
-              >
-                Play Daily Five
+              <button id="dailyButton" class="secondary" type="button">
+                ${dailyLabel}
               </button>
             </div>
           </div>
 
           <div class="stats-grid">
             <article class="stat-card">
-              <span>
-                Best score
-              </span>
-
-              <strong>
-                ${
-                  stats.bestScore
-                    .toLocaleString()
-                }
-              </strong>
+              <span>Best score</span>
+              <strong>${stats.bestScore.toLocaleString()}</strong>
             </article>
 
             <article class="stat-card">
-              <span>
-                Games played
-              </span>
-
-              <strong>
-                ${stats.gamesPlayed}
-              </strong>
+              <span>Games played</span>
+              <strong>${stats.gamesPlayed}</strong>
             </article>
 
             <article class="stat-card">
-              <span>
-                Players found
-              </span>
-
-              <strong>
-                ${stats.correctPlayers}
-              </strong>
+              <span>Players discovered</span>
+              <strong>${discovered}/${players.length}</strong>
             </article>
 
             <article class="stat-card">
-              <span>
-                Forgotten
-              </span>
-
-              <strong>
-                ${stats.forgottenCount}
-              </strong>
+              <span>Unique forgotten</span>
+              <strong>${forgottenCount()}</strong>
             </article>
           </div>
 
+          <div class="collection-card" style="margin-top: 12px;">
+            <strong>Collection progress</strong>
+
+            <div class="progress-track" aria-label="${progress}% discovered">
+              <div
+                class="progress-fill"
+                style="width: ${progress}%"
+              ></div>
+            </div>
+
+            <p class="muted" style="margin-bottom: 0;">
+              A footballer is counted once, no matter how many times
+              you recognise him in later games.
+            </p>
+          </div>
+
           <div class="notice">
-            Current test database:
-            ${players.length}
-            verified face photographs.
+            Current database: <strong>${players.length}</strong>
+            face-positioned footballers.
           </div>
         </section>
       `;
 
       document
-        .getElementById(
-          "newGameButton"
-        )
-        .addEventListener(
-          "click",
-          showSetup
-        );
+        .getElementById("newGameButton")
+        .addEventListener("click", showSetup);
 
       document
-        .getElementById(
-          "dailyButton"
-        )
-        .addEventListener(
-          "click",
-          startDailyGame
-        );
+        .getElementById("dailyButton")
+        .addEventListener("click", startDailyGame);
     }
 
     function showSetup() {
-      const eras =
-        availableEras();
+      const eras = availableEras();
 
       screen.innerHTML = `
         <section class="screen">
-          <button
-            id="backButton"
-            class="ghost"
-            type="button"
-          >
+          <button id="backButton" class="ghost" type="button">
             ← Back home
           </button>
 
-          <h2>
-            Build your game
-          </h2>
+          <h2>Build your game</h2>
 
           <div class="setup-card">
             <div class="field">
-              <label for="eraSelect">
-                Football era
-              </label>
+              <label for="eraSelect">Football era</label>
 
               <select id="eraSelect">
-                <option>
-                  All Eras
-                </option>
-
-                ${eras
-                  .map(
-                    era => `
-                      <option>
-                        ${era}
-                      </option>
-                    `
-                  )
-                  .join("")}
+                <option>All Eras</option>
+                ${eras.map(era => `<option>${era}</option>`).join("")}
               </select>
             </div>
 
             <div class="field">
-              <label>
-                Game length
-              </label>
+              <label>Game length</label>
 
               <div class="length-buttons">
                 <button
-                  class="
-                    length-button
-                    active
-                  "
+                  class="length-button active"
                   data-length="5"
                   type="button"
                 >
-                  Quick game
-                  <small>
-                    5 players
-                  </small>
+                  Quick
+                  <small>5 players</small>
                 </button>
 
                 <button
                   class="length-button"
                   data-length="10"
                   type="button"
-                  ${
-                    players.length < 10
-                      ? "disabled"
-                      : ""
-                  }
                 >
                   Standard
-                  <small>
-                    10 players
-                  </small>
+                  <small>10 players</small>
+                </button>
+
+                <button
+                  class="length-button"
+                  data-length="20"
+                  type="button"
+                >
+                  Marathon
+                  <small>20 players</small>
                 </button>
               </div>
             </div>
 
-            ${
-              players.length < 10
-                ? `
-                  <div class="notice">
-                    Standard mode unlocks
-                    automatically when the
-                    database reaches 10 players.
-                  </div>
-                `
-                : ""
-            }
+            <div id="availabilityNotice" class="notice"></div>
 
-            <button
-              id="startGameButton"
-              class="primary"
-              type="button"
-            >
+            <button id="startGameButton" class="primary" type="button">
               Start game
             </button>
           </div>
@@ -1222,145 +914,99 @@
 
       selectedLength = 5;
 
-      const eraSelect =
-        document.getElementById(
-          "eraSelect"
-        );
+      const eraSelect = document.getElementById("eraSelect");
+      const availabilityNotice =
+        document.getElementById("availabilityNotice");
+      const lengthButtons = [
+        ...document.querySelectorAll(".length-button")
+      ];
 
-      eraSelect.value =
-        selectedEra;
+      eraSelect.value = selectedEra;
 
-      document
-        .getElementById(
-          "backButton"
-        )
-        .addEventListener(
-          "click",
-          showHome
-        );
+      function refreshAvailability() {
+        const available = playersForEra(eraSelect.value).length;
 
-      document
-        .querySelectorAll(
-          ".length-button"
-        )
-        .forEach(
-          button => {
-            button.addEventListener(
-              "click",
-              () => {
-                if (
-                  button.disabled
-                ) {
-                  return;
-                }
+        lengthButtons.forEach(button => {
+          const length = Number(button.dataset.length);
+          button.disabled = length > available;
 
-                document
-                  .querySelectorAll(
-                    ".length-button"
-                  )
-                  .forEach(
-                    item =>
-                      item.classList.remove(
-                        "active"
-                      )
-                  );
+          if (button.disabled && button.classList.contains("active")) {
+            button.classList.remove("active");
+            selectedLength = Math.min(5, available);
 
-                button.classList.add(
-                  "active"
-                );
-
-                selectedLength =
-                  Number(
-                    button.dataset.length
-                  );
-              }
+            const fallback = lengthButtons.find(
+              item => Number(item.dataset.length) <= available
             );
+
+            if (fallback) {
+              fallback.classList.add("active");
+              selectedLength = Number(fallback.dataset.length);
+            }
           }
-        );
+        });
+
+        availabilityNotice.innerHTML = `
+          <strong>${available}</strong> players are available for
+          ${eraSelect.value}.
+        `;
+      }
 
       document
-        .getElementById(
-          "startGameButton"
-        )
-        .addEventListener(
-          "click",
-          () => {
-            selectedEra =
-              eraSelect.value;
+        .getElementById("backButton")
+        .addEventListener("click", showHome);
 
-            startGame(
-              false
-            );
-          }
-        );
+      eraSelect.addEventListener("change", refreshAvailability);
+
+      lengthButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          if (button.disabled) return;
+
+          lengthButtons.forEach(item =>
+            item.classList.remove("active")
+          );
+
+          button.classList.add("active");
+          selectedLength = Number(button.dataset.length);
+        });
+      });
+
+      document
+        .getElementById("startGameButton")
+        .addEventListener("click", () => {
+          selectedEra = eraSelect.value;
+          startGame(false);
+        });
+
+      refreshAvailability();
     }
 
     function startDailyGame() {
-      selectedEra =
-        "All Eras";
-
-      selectedLength =
-        Math.min(
-          5,
-          players.length
-        );
-
-      startGame(
-        true
-      );
+      selectedEra = "All Eras";
+      selectedLength = Math.min(5, players.length);
+      startGame(true);
     }
 
-    function startGame(
-      daily
-    ) {
-      let availablePlayers =
-        playersForEra(
-          selectedEra
-        );
+    function startGame(daily) {
+      let availablePlayers = playersForEra(selectedEra);
 
-      if (
-        availablePlayers.length === 0
-      ) {
-        availablePlayers =
-          [...players];
+      if (availablePlayers.length === 0) {
+        availablePlayers = [...players];
       }
 
-      const chosenOrder =
-        daily
-          ? seededShuffle(
-              availablePlayers,
-              todayKey()
-            )
-          : shuffle(
-              availablePlayers
-            );
+      const chosenOrder = daily
+        ? seededShuffle(availablePlayers, todayKey())
+        : shuffle(availablePlayers);
 
-      const chosenPlayers =
-        chosenOrder
-          .slice(
-            0,
-            Math.min(
-              selectedLength,
-              chosenOrder.length
-            )
-          )
-          .sort(
-            (
-              first,
-              second
-            ) =>
-              first.difficulty -
-              second.difficulty
-          );
+      const chosenPlayers = chosenOrder
+        .slice(0, Math.min(selectedLength, chosenOrder.length))
+        .sort((first, second) =>
+          first.difficulty - second.difficulty
+        );
 
-      preloadImages(
-        chosenPlayers
-      );
+      preloadImages(chosenPlayers);
 
       game = {
-        players:
-          chosenPlayers,
-
+        players: chosenPlayers,
         index: 0,
         stage: 0,
         score: 0,
@@ -1368,45 +1014,37 @@
         correct: 0,
         wrongGuesses: 0,
         outcomes: [],
-        daily
+        newDiscoveries: 0,
+        daily,
+        resultsSaved: false,
+        currentWasNew: false
       };
 
       showRound();
     }
 
     function currentPlayer() {
-      return game.players[
-        game.index
-      ];
+      return game.players[game.index];
     }
 
     function showRound() {
       if (
-        game.index >=
-          game.players.length ||
+        game.index >= game.players.length ||
         game.lives <= 0
       ) {
         showResults();
         return;
       }
 
-      const player =
-        currentPlayer();
-
+      const player = currentPlayer();
       const finalClue =
         game.stage === 4
           ? `
             <div class="final-clue">
-              <strong>
-                Final clue
-              </strong>
-              <br>
-
+              <strong>Final clue</strong><br>
               ${player.nationality}
-              ·
-              ${player.position}
-              ·
-              ${player.clubs.join(", ")}
+              · ${player.position}
+              · ${player.clubs.join(", ")}
             </div>
           `
           : "";
@@ -1415,10 +1053,7 @@
         <section class="screen">
           <div class="game-top">
             <span>
-              Player
-              ${game.index + 1}
-              of
-              ${game.players.length}
+              Player ${game.index + 1} of ${game.players.length}
             </span>
 
             <span>
@@ -1428,24 +1063,11 @@
           </div>
 
           <div class="score-row">
-            <span class="muted">
-              Run score
-            </span>
-
-            <span
-              id="scoreValue"
-              class="score"
-            >
-              ${game.score}
-            </span>
+            <span class="muted">Run score</span>
+            <span id="scoreValue" class="score">${game.score}</span>
           </div>
 
-          <div
-            class="
-              photo-frame
-              stage-${game.stage}
-            "
-          >
+          <div class="photo-frame stage-${game.stage}">
             <img
               id="playerImage"
               class="player-photo"
@@ -1453,49 +1075,27 @@
               alt="Mystery footballer"
               referrerpolicy="no-referrer"
               style="
-                --focus-x:
-                  ${player.focusX};
-
-                --focus-y:
-                  ${player.focusY};
+                --focus-x: ${player.focusX || "50%"};
+                --focus-y: ${player.focusY || "35%"};
+                --zoom: ${Number(player.zoom) || 1};
               "
             >
 
-            <div
-              id="imageError"
-              class="image-error"
-            >
+            <div id="imageError" class="image-error">
               <div>
-                <strong>
-                  The image did not load.
-                </strong>
-
+                <strong>The image did not load.</strong>
                 <p class="muted">
-                  Refresh the page.
-                  You will not lose points.
+                  Refresh the page or skip this player.
                 </p>
               </div>
             </div>
 
-            <span
-              class="
-                chip
-                chip-left
-              "
-            >
-              Reveal
-              ${game.stage + 1}
-              of 5
+            <span class="chip chip-left">
+              Reveal ${game.stage + 1} of 5
             </span>
 
-            <span
-              class="
-                chip
-                chip-right
-              "
-            >
-              ${points[game.stage]}
-              points
+            <span class="chip chip-right">
+              ${points[game.stage]} points
             </span>
           </div>
 
@@ -1503,16 +1103,8 @@
             ${[0, 1, 2, 3, 4]
               .map(
                 stage => `
-                  <span
-                    class="
-                      ${
-                        stage <=
-                        game.stage
-                          ? "active"
-                          : ""
-                      }
-                    "
-                  ></span>
+                  <span class="${stage <= game.stage ? "active" : ""}">
+                  </span>
                 `
               )
               .join("")}
@@ -1521,9 +1113,7 @@
           ${finalClue}
 
           <div class="controls">
-            <label for="guess">
-              Who is the footballer?
-            </label>
+            <label for="guess">Who is the footballer?</label>
 
             <input
               id="guess"
@@ -1540,11 +1130,7 @@
               aria-live="polite"
             ></div>
 
-            <button
-              id="guessButton"
-              class="primary"
-              type="button"
-            >
+            <button id="guessButton" class="primary" type="button">
               Lock in answer
             </button>
 
@@ -1553,24 +1139,12 @@
                 id="revealButton"
                 class="secondary"
                 type="button"
-                ${
-                  game.stage === 4
-                    ? "disabled"
-                    : ""
-                }
+                ${game.stage === 4 ? "disabled" : ""}
               >
-                ${
-                  game.stage === 4
-                    ? "No more reveals"
-                    : "Reveal more"
-                }
+                ${game.stage === 4 ? "No more reveals" : "Reveal more"}
               </button>
 
-              <button
-                id="skipButton"
-                class="secondary"
-                type="button"
-              >
+              <button id="skipButton" class="secondary" type="button">
                 Skip
               </button>
             </div>
@@ -1578,95 +1152,68 @@
         </section>
       `;
 
-      const image =
-        document.getElementById(
-          "playerImage"
-        );
+      const image = document.getElementById("playerImage");
+      const guessInput = document.getElementById("guess");
+      const feedback = document.getElementById("feedback");
+      const guessButton = document.getElementById("guessButton");
+      const revealButton = document.getElementById("revealButton");
+      const skipButton = document.getElementById("skipButton");
 
-      image.addEventListener(
-        "error",
-        () => {
-          image.style.display =
-            "none";
+      let roundLocked = false;
 
-          document
-            .getElementById(
-              "imageError"
-            )
-            .style.display =
-              "grid";
-        }
-      );
+      function lockRound() {
+        roundLocked = true;
+        guessButton.disabled = true;
+        revealButton.disabled = true;
+        skipButton.disabled = true;
+        guessInput.disabled = true;
+      }
 
-      const guessInput =
-        document.getElementById(
-          "guess"
-        );
-
-      const feedback =
-        document.getElementById(
-          "feedback"
-        );
+      image.addEventListener("error", () => {
+        image.style.display = "none";
+        document.getElementById("imageError").style.display = "grid";
+      });
 
       function submitGuess() {
-        if (
-          !guessInput.value.trim()
-        ) {
-          feedback.textContent =
-            "Enter a player name first.";
+        if (roundLocked) return;
 
+        if (!guessInput.value.trim()) {
+          feedback.textContent = "Enter a player name first.";
           return;
         }
 
-        const correct =
-          answerIsCorrect(
-            guessInput.value,
-            player
-          );
+        if (answerIsCorrect(guessInput.value, player)) {
+          lockRound();
 
-        if (correct) {
-          game.score +=
-            points[game.stage];
-
+          game.score += points[game.stage];
           game.correct += 1;
+          stats.totalCorrectGuesses += 1;
+
+          game.currentWasNew = recordDiscovery(player.id);
+
+          if (game.currentWasNew) {
+            game.newDiscoveries += 1;
+          } else {
+            saveStats();
+          }
 
           game.outcomes.push({
             correct: true,
             stage: game.stage
           });
 
-          feedback.className =
-            "feedback success";
+          feedback.className = "feedback success";
+          feedback.textContent = game.currentWasNew
+            ? "Correct — new player discovered."
+            : "Correct.";
 
-          feedback.textContent =
-            "Correct.";
-
-          setTimeout(
-            () =>
-              showReveal(
-                true
-              ),
-            250
-          );
-
+          setTimeout(() => showReveal(true), 300);
           return;
         }
 
         game.wrongGuesses += 1;
-
-        game.score =
-          Math.max(
-            0,
-            game.score - 50
-          );
-
-        document
-          .getElementById(
-            "scoreValue"
-          )
-          .textContent =
-            game.score;
-
+        game.score = Math.max(0, game.score - 50);
+        document.getElementById("scoreValue").textContent = game.score;
         guessInput.value = "";
 
         feedback.textContent =
@@ -1674,9 +1221,8 @@
             ? "Three incorrect guesses."
             : "Not quite. Try again or reveal more.";
 
-        if (
-          game.wrongGuesses >= 3
-        ) {
+        if (game.wrongGuesses >= 3) {
+          lockRound();
           game.lives -= 1;
 
           game.outcomes.push({
@@ -1684,154 +1230,105 @@
             stage: game.stage
           });
 
-          setTimeout(
-            () =>
-              showReveal(
-                false
-              ),
-            350
-          );
+          setTimeout(() => showReveal(false), 350);
         }
       }
 
-      document
-        .getElementById(
-          "guessButton"
-        )
-        .addEventListener(
-          "click",
-          submitGuess
-        );
+      guessButton.addEventListener("click", submitGuess);
 
-      guessInput.addEventListener(
-        "keydown",
-        event => {
-          if (
-            event.key ===
-            "Enter"
-          ) {
-            submitGuess();
-          }
-        }
-      );
+      guessInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") submitGuess();
+      });
 
-      document
-        .getElementById(
-          "revealButton"
-        )
-        .addEventListener(
-          "click",
-          () => {
-            if (
-              game.stage < 4
-            ) {
-              game.stage += 1;
-              showRound();
-            }
-          }
-        );
+      revealButton.addEventListener("click", () => {
+        if (roundLocked || game.stage >= 4) return;
+        game.stage += 1;
+        showRound();
+      });
 
-      document
-        .getElementById(
-          "skipButton"
-        )
-        .addEventListener(
-          "click",
-          () => {
-            game.lives -= 1;
+      skipButton.addEventListener("click", () => {
+        if (roundLocked) return;
+        lockRound();
 
-            game.outcomes.push({
-              correct: false,
-              stage: game.stage
-            });
+        game.lives -= 1;
+        game.outcomes.push({
+          correct: false,
+          stage: game.stage
+        });
 
-            showReveal(
-              false
-            );
-          }
-        );
+        showReveal(false);
+      });
 
       guessInput.focus();
     }
 
-    function showReveal(
-      correct
-    ) {
-      const player =
-        currentPlayer();
+    function showReveal(correct) {
+      const player = currentPlayer();
 
       screen.innerHTML = `
         <section class="screen">
           <p class="eyebrow">
             ${
-              correct
-                ? "YOU REMEMBERED HIM"
-                : "PLAYER MISSED"
+              correct && game.currentWasNew
+                ? "NEW PLAYER DISCOVERED"
+                : correct
+                  ? "YOU REMEMBERED HIM"
+                  : "PLAYER MISSED"
             }
           </p>
 
-          <img
-            class="full-photo"
-            src="${player.image}"
-            alt="${player.name}"
-            referrerpolicy="no-referrer"
-            style="
-              object-position:
-                ${player.focusX}
-                ${player.focusY};
-            "
-          >
+          <div class="photo-frame stage-4" style="max-height: none;">
+            <img
+              class="player-photo"
+              src="${player.image}"
+              alt="${player.name}"
+              referrerpolicy="no-referrer"
+              style="
+                --focus-x: ${player.focusX || "50%"};
+                --focus-y: ${player.focusY || "35%"};
+                --zoom: ${Number(player.zoom) || 1};
+              "
+            >
+          </div>
 
-          <h1 class="player-name">
-            ${player.name}
-          </h1>
+          <h1 class="player-name">${player.name}</h1>
 
           <p class="muted">
-            ${player.nationality}
-            ·
-            ${player.position}
+            ${player.nationality} · ${player.position}
           </p>
+
+          ${
+            correct && game.currentWasNew
+              ? `
+                <div class="new-discovery">
+                  Added to your collection:
+                  ${discoveredCount()} of ${players.length}.
+                </div>
+              `
+              : ""
+          }
 
           <div class="details">
             <div class="detail-row">
-              <span>
-                Club(s)
-              </span>
-
-              <strong>
-                ${player.clubs.join(", ")}
-              </strong>
+              <span>Club(s)</span>
+              <strong>${player.clubs.join(", ")}</strong>
             </div>
 
             <div class="detail-row">
-              <span>
-                Era
-              </span>
-
-              <strong>
-                ${player.era}
-              </strong>
+              <span>Era(s)</span>
+              <strong>${playerEras(player).join(" · ")}</strong>
             </div>
 
             <div class="detail-row">
-              <span>
-                Difficulty
-              </span>
-
-              <strong>
-                ${player.difficulty}/10
-              </strong>
+              <span>Difficulty</span>
+              <strong>${player.difficulty}/10</strong>
             </div>
 
-            <p class="muted">
-              ${player.fact}
-            </p>
+            <p class="muted">${player.fact}</p>
 
             <p class="attribution">
-              Photograph:
-              ${player.credit}.
-              Cropped, blurred and zoomed
-              for gameplay.
+              Photograph: ${player.credit}. The image is cropped,
+              zoomed and blurred for gameplay.
 
               <br><br>
 
@@ -1840,7 +1337,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Image source and licence
+                Open image source and licence
               </a>
             </p>
           </div>
@@ -1853,14 +1350,9 @@
             💭 I’d forgotten about him!
           </button>
 
-          <button
-            id="nextButton"
-            class="primary"
-            type="button"
-          >
+          <button id="nextButton" class="primary" type="button">
             ${
-              game.index ===
-              game.players.length - 1
+              game.index === game.players.length - 1
                 ? "See final score"
                 : "Next player"
             }
@@ -1869,122 +1361,82 @@
       `;
 
       document
-        .getElementById(
-          "forgottenButton"
-        )
-        .addEventListener(
-          "click",
-          event => {
-            stats.forgottenCount += 1;
-            saveStats();
+        .getElementById("forgottenButton")
+        .addEventListener("click", event => {
+          const wasNew = recordForgotten(player.id);
 
-            event.currentTarget
-              .textContent =
-                "💭 That one got me";
+          event.currentTarget.textContent = wasNew
+            ? "💭 Added to unique forgotten players"
+            : "💭 Already in your forgotten list";
 
-            event.currentTarget
-              .disabled =
-                true;
-          }
-        );
+          event.currentTarget.disabled = true;
+        });
 
       document
-        .getElementById(
-          "nextButton"
-        )
-        .addEventListener(
-          "click",
-          () => {
-            game.index += 1;
-            game.stage = 0;
-            game.wrongGuesses = 0;
-
-            showRound();
-          }
-        );
+        .getElementById("nextButton")
+        .addEventListener("click", () => {
+          game.index += 1;
+          game.stage = 0;
+          game.wrongGuesses = 0;
+          game.currentWasNew = false;
+          showRound();
+        });
     }
 
     function showResults() {
-      const resultGrid =
-        game.outcomes
-          .map(
-            outcome => {
-              if (
-                !outcome.correct
-              ) {
-                return "🟥";
-              }
+      if (!game.resultsSaved) {
+        stats.gamesPlayed += 1;
+        stats.bestScore = Math.max(stats.bestScore, game.score);
 
-              if (
-                outcome.stage <= 1
-              ) {
-                return "🟩";
-              }
+        if (game.daily) {
+          stats.lastDailyDate = todayKey();
+        }
 
-              return "🟨";
-            }
-          )
-          .join("");
-
-      stats.gamesPlayed += 1;
-
-      stats.correctPlayers +=
-        game.correct;
-
-      stats.bestScore =
-        Math.max(
-          stats.bestScore,
-          game.score
-        );
-
-      if (game.daily) {
-        stats.lastDailyDate =
-          todayKey();
+        game.resultsSaved = true;
+        saveStats();
       }
 
-      saveStats();
+      const resultGrid = game.outcomes
+        .map(outcome => {
+          if (!outcome.correct) return "🟥";
+          return outcome.stage <= 1 ? "🟩" : "🟨";
+        })
+        .join("");
 
       screen.innerHTML = `
         <section class="screen">
           <div class="results-card">
-            <p class="eyebrow">
-              FULL TIME
-            </p>
+            <p class="eyebrow">FULL TIME</p>
 
-            <h1>
-              Terrace knowledge tested.
-            </h1>
+            <h1>Terrace knowledge tested.</h1>
 
-            <div class="big-score">
-              ${game.score}
-            </div>
+            <div class="big-score">${game.score}</div>
 
             <p class="muted">
-              You recognised
-              ${game.correct}
-              of
-              ${game.players.length}
-              footballers.
+              You recognised ${game.correct} of
+              ${game.players.length} footballers.
             </p>
 
-            <div class="result-grid">
-              ${resultGrid}
+            <div class="result-grid">${resultGrid}</div>
+
+            <div class="stats-grid">
+              <article class="stat-card">
+                <span>New discoveries</span>
+                <strong>${game.newDiscoveries}</strong>
+              </article>
+
+              <article class="stat-card">
+                <span>Collection</span>
+                <strong>${discoveredCount()}/${players.length}</strong>
+              </article>
             </div>
 
-            <div class="button-stack">
-              <button
-                id="againButton"
-                class="primary"
-                type="button"
-              >
+            <div class="button-stack" style="margin-top: 16px;">
+              <button id="againButton" class="primary" type="button">
                 Play again
               </button>
 
-              <button
-                id="homeButton"
-                class="secondary"
-                type="button"
-              >
+              <button id="homeButton" class="secondary" type="button">
                 Return home
               </button>
             </div>
@@ -1993,39 +1445,24 @@
       `;
 
       document
-        .getElementById(
-          "againButton"
-        )
-        .addEventListener(
-          "click",
-          showSetup
-        );
+        .getElementById("againButton")
+        .addEventListener("click", showSetup);
 
       document
-        .getElementById(
-          "homeButton"
-        )
-        .addEventListener(
-          "click",
-          showHome
-        );
+        .getElementById("homeButton")
+        .addEventListener("click", showHome);
     }
 
     updateHeader();
 
-    if (
-      players.length === 0
-    ) {
+    if (players.length === 0) {
       screen.innerHTML = `
         <section class="screen">
           <div class="results-card">
-            <h1>
-              Player data missing
-            </h1>
+            <h1>Player data missing</h1>
 
             <p class="muted">
-              Check that players.js
-              is saved beside index.html.
+              Check that players.js is saved beside index.html.
             </p>
           </div>
         </section>
