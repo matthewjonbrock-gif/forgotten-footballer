@@ -16,7 +16,6 @@
       --text: #f5efdf;
       --muted: #a7b6ae;
       --danger: #ff766e;
-      --success: #50dd98;
       --gold: #f4d382;
       --border: rgba(255, 255, 255, 0.12);
     }
@@ -28,10 +27,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
         radial-gradient(
@@ -58,7 +54,7 @@
 
     button:focus-visible,
     input:focus-visible {
-      outline: 3px solid rgba(80, 221, 152, 0.55);
+      outline: 3px solid rgba(80, 221, 152, 0.5);
       outline-offset: 2px;
     }
 
@@ -114,7 +110,7 @@
 
     .hero,
     .controls,
-    .reveal-card,
+    .details,
     .results-card {
       padding: 18px;
       border: 1px solid var(--border);
@@ -127,9 +123,9 @@
     .forgotten-button {
       width: 100%;
       min-height: 52px;
-      border-radius: 16px;
       padding: 12px;
       border: 1px solid transparent;
+      border-radius: 16px;
       font-weight: bold;
     }
 
@@ -176,92 +172,81 @@
     .photo-frame {
       position: relative;
       height: 470px;
-      max-height: 62vh;
       min-height: 350px;
+      max-height: 62vh;
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 26px;
       background: #0b1b14;
     }
 
-    /*
-      These variables are set separately for each player.
-
-      --face-x controls left/right positioning.
-      --face-y controls up/down positioning.
-
-      The transform origin makes every zoom move towards
-      the player's face rather than the centre of their shirt.
-    */
-    .photo-frame img {
+    .player-photo {
       width: 100%;
       height: 100%;
       object-fit: cover;
 
       object-position:
-        var(--face-x, 50%)
-        var(--face-y, 18%);
+        var(--focus-x, 50%)
+        var(--focus-y, 35%);
 
       transform-origin:
-        var(--face-x, 50%)
-        var(--face-y, 18%);
+        var(--focus-x, 50%)
+        var(--focus-y, 35%);
 
       transition:
         transform 0.5s ease,
         filter 0.5s ease;
-
-      will-change:
-        transform,
-        filter;
     }
 
     /*
       Reveal 1:
-      Face-focused but still heavily blurred.
+      Clearly a face, but still difficult.
     */
-    .stage-0 img {
-      transform: scale(2.1);
+    .stage-0 .player-photo {
+      transform: scale(1.82);
       filter:
-        blur(10px)
-        saturate(0.78);
+        blur(11px)
+        brightness(0.82)
+        saturate(0.72);
     }
 
     /*
       Reveal 2:
-      Face shape and hairstyle begin to appear.
+      Face shape and hair become visible.
     */
-    .stage-1 img {
-      transform: scale(1.72);
+    .stage-1 .player-photo {
+      transform: scale(1.55);
       filter:
-        blur(6px)
-        saturate(0.86);
+        blur(7px)
+        brightness(0.9)
+        saturate(0.82);
     }
 
     /*
       Reveal 3:
-      Facial features become useful.
+      Features start becoming recognisable.
     */
-    .stage-2 img {
-      transform: scale(1.4);
+    .stage-2 .player-photo {
+      transform: scale(1.32);
       filter:
-        blur(3px)
-        saturate(0.94);
+        blur(4px)
+        saturate(0.92);
     }
 
     /*
       Reveal 4:
-      Mostly clear, but still slightly zoomed.
+      Fairly clear.
     */
-    .stage-3 img {
-      transform: scale(1.17);
-      filter: blur(0.8px);
+    .stage-3 .player-photo {
+      transform: scale(1.14);
+      filter: blur(1.3px);
     }
 
     /*
       Reveal 5:
-      Full photograph.
+      Full clear portrait.
     */
-    .stage-4 img {
+    .stage-4 .player-photo {
       transform: scale(1);
       filter: none;
     }
@@ -273,7 +258,7 @@
       padding: 8px 11px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(5, 17, 12, 0.84);
+      background: rgba(5, 17, 12, 0.85);
       font-size: 12px;
       font-weight: bold;
       backdrop-filter: blur(8px);
@@ -351,7 +336,7 @@
     }
 
     .feedback.success {
-      color: var(--success);
+      color: var(--green);
     }
 
     .button-row {
@@ -365,6 +350,7 @@
       width: 100%;
       height: 420px;
       object-fit: cover;
+      border: 1px solid var(--border);
       border-radius: 24px;
       background: #0b1b14;
     }
@@ -377,10 +363,6 @@
 
     .details {
       margin: 16px 0;
-      padding: 16px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: var(--panel);
     }
 
     .detail-row {
@@ -404,6 +386,10 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.5;
+    }
+
+    .attribution a {
+      color: var(--green);
     }
 
     .big-score {
@@ -447,12 +433,11 @@
 
   <script>
     /*
-      faceX and faceY control where the player's face sits.
+      Every photograph below has been selected because
+      the player's face is clearly visible.
 
-      Smaller faceY values move the photograph upwards.
-
-      These can later be adjusted individually if a particular
-      player's face is not perfectly centred.
+      focusX and focusY keep each face centred while
+      the image zooms and becomes clearer.
     */
     const players = [
       {
@@ -466,22 +451,25 @@
         ],
 
         image:
-          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Morten_gamst_pedersen.JPG?width=900",
+          "https://upload.wikimedia.org/wikipedia/commons/f/fd/Morten_Gamst_Pedersen_vs_England_May_2012_%28cropped%29.jpg",
+
+        source:
+          "https://commons.wikimedia.org/wiki/File:Morten_Gamst_Pedersen_vs_England_May_2012_(cropped).jpg",
 
         nationality: "Norway",
         position: "Left midfielder",
         clubs: "Blackburn Rovers",
 
         fact:
-          "Remembered for his left foot, set pieces and spectacular long-range goals.",
+          "Remembered for his left foot, dangerous set pieces and spectacular long-range goals.",
 
         difficulty: 4,
 
         credit:
-          "Free-ers, CC BY 2.0, via Wikimedia Commons",
+          "John Christian Fjellestad, CC BY-SA 2.0, via Wikimedia Commons",
 
-        faceX: "50%",
-        faceY: "17%"
+        focusX: "50%",
+        focusY: "34%"
       },
 
       {
@@ -491,26 +479,31 @@
           "niko kranjcar",
           "kranjcar",
           "niko kranjar",
-          "kranjar"
+          "kranjar",
+          "krancjar",
+          "krancjiar"
         ],
 
         image:
-          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Niko_Kranj%C4%8Dar.jpg?width=900",
+          "https://upload.wikimedia.org/wikipedia/commons/9/9a/Nikokranjcarfootballer.jpg",
+
+        source:
+          "https://commons.wikimedia.org/wiki/File:Nikokranjcarfootballer.jpg",
 
         nationality: "Croatia",
         position: "Attacking midfielder",
         clubs: "Portsmouth and Tottenham Hotspur",
 
         fact:
-          "A stylish playmaker remembered for his technique at Portsmouth and Tottenham.",
+          "A stylish creative midfielder remembered for his technique and ability from distance.",
 
         difficulty: 5,
 
         credit:
-          "Wikimedia Commons reusable media",
+          "Daveangelports, public domain, via Wikimedia Commons",
 
-        faceX: "50%",
-        faceY: "14%"
+        focusX: "50%",
+        focusY: "38%"
       },
 
       {
@@ -524,7 +517,10 @@
         ],
 
         image:
-          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yakubu.jpg?width=900",
+          "https://upload.wikimedia.org/wikipedia/commons/0/0f/Yakubu_in_2013_%28cropped%29.jpg",
+
+        source:
+          "https://commons.wikimedia.org/wiki/File:Yakubu_in_2013_(cropped).jpg",
 
         nationality: "Nigeria",
         position: "Striker",
@@ -533,43 +529,79 @@
           "Portsmouth, Middlesbrough, Everton and Blackburn",
 
         fact:
-          "A powerful Premier League striker who scored consistently for several clubs.",
+          "A powerful and prolific Premier League striker who scored goals for several clubs.",
 
         difficulty: 3,
 
         credit:
-          "Wikimedia Commons reusable media",
+          "Alexchen4836, CC BY-SA 4.0, via Wikimedia Commons",
 
-        faceX: "50%",
-        faceY: "18%"
+        focusX: "50%",
+        focusY: "20%"
       },
 
       {
-        name: "Elano",
+        name: "Roque Santa Cruz",
 
         answers: [
-          "elano",
-          "elano blumer",
-          "blumer"
+          "roque santa cruz",
+          "santa cruz",
+          "roque",
+          "santacruz"
         ],
 
         image:
-          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Elano_blumer.jpg?width=900",
+          "https://upload.wikimedia.org/wikipedia/commons/0/04/Roque_Luis_Santa_Cruz.jpg",
 
-        nationality: "Brazil",
-        position: "Attacking midfielder",
-        clubs: "Manchester City",
+        source:
+          "https://commons.wikimedia.org/wiki/File:Roque_Luis_Santa_Cruz.jpg",
+
+        nationality: "Paraguay",
+        position: "Striker",
+        clubs: "Blackburn Rovers and Manchester City",
 
         fact:
-          "A gifted Brazilian remembered for elegant passing and brilliant free-kicks.",
+          "His outstanding first Blackburn season made him one of the league's most sought-after strikers.",
 
-        difficulty: 5,
+        difficulty: 4,
 
         credit:
-          "Zoban, via Wikimedia Commons",
+          "Hazaña17, CC BY-SA, via Wikimedia Commons",
 
-        faceX: "50%",
-        faceY: "16%"
+        focusX: "50%",
+        focusY: "42%"
+      },
+
+      {
+        name: "Tugay",
+
+        answers: [
+          "tugay",
+          "tugay kerimoglu",
+          "kerimoglu",
+          "tugay kerimoglu"
+        ],
+
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/e/ec/Tugay_kerioglu_in_2016.jpg",
+
+        source:
+          "https://commons.wikimedia.org/wiki/File:Tugay_kerioglu_in_2016.jpg",
+
+        nationality: "Turkey",
+        position: "Central midfielder",
+        clubs: "Blackburn Rovers",
+
+        fact:
+          "A Blackburn cult hero remembered for calm midfield control and extraordinary long-range goals.",
+
+        difficulty: 6,
+
+        credit:
+          "Biser Todorov, CC BY-SA 4.0, via Wikimedia Commons",
+
+        focusX: "50%",
+        focusY: "43%"
       }
     ];
 
@@ -586,11 +618,6 @@
 
     let game = {};
 
-    /*
-      Removes accents, punctuation and capital letters.
-
-      Kranjčar becomes kranjcar.
-    */
     function normalise(value) {
       return String(value)
         .toLowerCase()
@@ -600,102 +627,99 @@
     }
 
     /*
-      Measures how many letters need to change
-      for one spelling to become another.
+      Forgiving spelling checker.
 
-      This allows small spelling mistakes.
+      It accepts missing letters, extra letters,
+      swapped letters and minor spelling mistakes.
     */
-    function levenshtein(first, second) {
+    function editDistance(first, second) {
       const a = normalise(first);
       const b = normalise(second);
 
-      const previousRow =
-        Array.from(
-          { length: b.length + 1 },
-          (_, index) => index
-        );
+      const matrix = Array.from(
+        { length: a.length + 1 },
+        () => Array(b.length + 1).fill(0)
+      );
 
       for (
-        let firstIndex = 1;
-        firstIndex <= a.length;
-        firstIndex += 1
+        let row = 0;
+        row <= a.length;
+        row += 1
       ) {
-        let previousDiagonal =
-          previousRow[0];
+        matrix[row][0] = row;
+      }
 
-        previousRow[0] =
-          firstIndex;
+      for (
+        let column = 0;
+        column <= b.length;
+        column += 1
+      ) {
+        matrix[0][column] = column;
+      }
 
+      for (
+        let row = 1;
+        row <= a.length;
+        row += 1
+      ) {
         for (
-          let secondIndex = 1;
-          secondIndex <= b.length;
-          secondIndex += 1
+          let column = 1;
+          column <= b.length;
+          column += 1
         ) {
-          const oldValue =
-            previousRow[secondIndex];
+          const cost =
+            a[row - 1] === b[column - 1]
+              ? 0
+              : 1;
 
-          const insertion =
-            previousRow[secondIndex - 1] + 1;
-
-          const deletion =
-            previousRow[secondIndex] + 1;
-
-          const substitution =
-            previousDiagonal +
-            (
-              a[firstIndex - 1] ===
-              b[secondIndex - 1]
-                ? 0
-                : 1
-            );
-
-          previousRow[secondIndex] =
+          matrix[row][column] =
             Math.min(
-              insertion,
-              deletion,
-              substitution
+              matrix[row - 1][column] + 1,
+              matrix[row][column - 1] + 1,
+              matrix[row - 1][column - 1] + cost
             );
 
-          previousDiagonal =
-            oldValue;
+          /*
+            Treat two swapped letters as one mistake.
+          */
+          if (
+            row > 1 &&
+            column > 1 &&
+            a[row - 1] === b[column - 2] &&
+            a[row - 2] === b[column - 1]
+          ) {
+            matrix[row][column] =
+              Math.min(
+                matrix[row][column],
+                matrix[row - 2][column - 2] + 1
+              );
+          }
         }
       }
 
-      return previousRow[b.length];
+      return matrix[a.length][b.length];
     }
 
-    /*
-      Decides how many spelling mistakes are acceptable.
-
-      Longer names allow slightly more errors.
-    */
-    function permittedMistakes(answerLength) {
-      if (answerLength <= 4) {
-        return 0;
-      }
-
-      if (answerLength <= 6) {
+    function allowedMistakes(length) {
+      if (length <= 4) {
         return 1;
       }
 
-      if (answerLength <= 10) {
+      if (length <= 7) {
         return 2;
       }
 
-      return 3;
+      if (length <= 10) {
+        return 3;
+      }
+
+      return 4;
     }
 
-    /*
-      Checks exact answers and close spellings.
-
-      Examples accepted:
-
-      krancjar
-      krancjiar
-      kranjcar
-      Kranjčar
-    */
-    function answerIsCorrect(guess, player) {
+    function answerIsCorrect(
+      guess,
+      player
+    ) {
       const cleanedGuess =
         normalise(guess);
 
@@ -703,52 +727,40 @@
         return false;
       }
 
-      return player.answers.some(answer => {
-        const cleanedAnswer =
-          normalise(answer);
+      return player.answers.some(
+        answer => {
+          const cleanedAnswer =
+            normalise(answer);
 
-        if (
-          cleanedGuess ===
-          cleanedAnswer
-        ) {
-          return true;
-        }
-
-        const maximumMistakes =
-          permittedMistakes(
-            cleanedAnswer.length
-          );
-
-        /*
-          Prevent wildly different answers
-          from being accepted.
-        */
-        if (
-          Math.abs(
-            cleanedGuess.length -
-            cleanedAnswer.length
-          ) > maximumMistakes
-        ) {
-          return false;
-        }
-
-        /*
-          The first letter should normally match.
-        */
-        if (
-          cleanedGuess[0] !==
-          cleanedAnswer[0]
-        ) {
-          return false;
-        }
-
-        return (
-          levenshtein(
-            cleanedGuess,
+          if (
+            cleanedGuess ===
             cleanedAnswer
-          ) <= maximumMistakes
-        );
-      });
+          ) {
+            return true;
+          }
+
+          const allowance =
+            allowedMistakes(
+              cleanedAnswer.length
+            );
+
+          if (
+            Math.abs(
+              cleanedGuess.length -
+              cleanedAnswer.length
+            ) > allowance
+          ) {
+            return false;
+          }
+
+          return (
+            editDistance(
+              cleanedGuess,
+              cleanedAnswer
+            ) <= allowance
+          );
+        }
+      );
     }
 
     function shuffle(items) {
@@ -777,6 +789,13 @@
       return copy;
     }
 
+    function preloadImages() {
+      players.forEach(player => {
+        const image = new Image();
+        image.src = player.image;
+      });
+    }
+
     function showHome() {
       screen.innerHTML = `
         <section class="screen">
@@ -791,8 +810,9 @@
             </h1>
 
             <p class="muted">
-              Guess real footballers from gradually
-              revealed photographs.
+              Five real footballers.
+              Every question now uses a proper
+              face-centred photograph.
             </p>
 
             <button
@@ -800,7 +820,7 @@
               class="primary"
               type="button"
             >
-              Play test pack
+              Play improved face pack
             </button>
           </div>
         </section>
@@ -815,6 +835,8 @@
     }
 
     function startGame() {
+      preloadImages();
+
       game = {
         players:
           shuffle(players),
@@ -901,15 +923,16 @@
           >
             <img
               id="playerImage"
+              class="player-photo"
               src="${player.image}"
               alt="Mystery footballer"
               referrerpolicy="no-referrer"
               style="
-                --face-x:
-                  ${player.faceX || "50%"};
+                --focus-x:
+                  ${player.focusX};
 
-                --face-y:
-                  ${player.faceY || "18%"};
+                --focus-y:
+                  ${player.focusY};
               "
             >
 
@@ -923,7 +946,8 @@
                 </strong>
 
                 <p class="muted">
-                  Refresh the page and try again.
+                  Refresh the page.
+                  You will not lose points.
                 </p>
               </div>
             </div>
@@ -979,9 +1003,7 @@
               autocomplete="off"
               autocorrect="off"
               spellcheck="false"
-              placeholder="
-                Type a name or surname
-              "
+              placeholder="Type a name or surname"
             >
 
             <div
@@ -1216,8 +1238,8 @@
             referrerpolicy="no-referrer"
             style="
               object-position:
-                ${player.faceX || "50%"}
-                ${player.faceY || "18%"};
+                ${player.focusX}
+                ${player.focusY};
             "
           >
 
@@ -1261,6 +1283,15 @@
               ${player.credit}.
               Cropped, blurred and zoomed
               for gameplay.
+              <br><br>
+
+              <a
+                href="${player.source}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Image source and licence
+              </a>
             </p>
           </div>
 
