@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07130e">
+
   <title>Forgotten Footballer</title>
 
   <style>
@@ -14,6 +16,8 @@
       --text: #f5efdf;
       --muted: #a7b6ae;
       --danger: #ff766e;
+      --success: #50dd98;
+      --gold: #f4d382;
       --border: rgba(255, 255, 255, 0.12);
     }
 
@@ -24,10 +28,17 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top, rgba(80, 221, 152, 0.16), transparent 35%),
+        radial-gradient(
+          circle at top,
+          rgba(80, 221, 152, 0.16),
+          transparent 35%
+        ),
         var(--background);
     }
 
@@ -38,6 +49,17 @@
 
     button {
       cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid rgba(80, 221, 152, 0.55);
+      outline-offset: 2px;
     }
 
     .app {
@@ -101,7 +123,8 @@
     }
 
     .primary,
-    .secondary {
+    .secondary,
+    .forgotten-button {
       width: 100%;
       min-height: 52px;
       border-radius: 16px;
@@ -119,6 +142,13 @@
       color: var(--text);
       background: var(--panel-light);
       border-color: var(--border);
+    }
+
+    .forgotten-button {
+      margin-bottom: 10px;
+      color: var(--gold);
+      background: rgba(244, 211, 130, 0.08);
+      border-color: rgba(244, 211, 130, 0.35);
     }
 
     .game-top,
@@ -154,34 +184,83 @@
       background: #0b1b14;
     }
 
+    /*
+      These variables are set separately for each player.
+
+      --face-x controls left/right positioning.
+      --face-y controls up/down positioning.
+
+      The transform origin makes every zoom move towards
+      the player's face rather than the centre of their shirt.
+    */
     .photo-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 20%;
-      transition: transform 0.5s ease, filter 0.5s ease;
+
+      object-position:
+        var(--face-x, 50%)
+        var(--face-y, 18%);
+
+      transform-origin:
+        var(--face-x, 50%)
+        var(--face-y, 18%);
+
+      transition:
+        transform 0.5s ease,
+        filter 0.5s ease;
+
+      will-change:
+        transform,
+        filter;
     }
-    
-.stage-0 img {
-  transform: scale(2.35);
-  filter: blur(7px) saturate(0.8);
-}
 
-.stage-1 img {
-  transform: scale(1.75);
-  filter: blur(4px) saturate(0.9);
-}
+    /*
+      Reveal 1:
+      Face-focused but still heavily blurred.
+    */
+    .stage-0 img {
+      transform: scale(2.1);
+      filter:
+        blur(10px)
+        saturate(0.78);
+    }
 
-.stage-2 img {
-  transform: scale(1.3);
-  filter: blur(1px);
-}
+    /*
+      Reveal 2:
+      Face shape and hairstyle begin to appear.
+    */
+    .stage-1 img {
+      transform: scale(1.72);
+      filter:
+        blur(6px)
+        saturate(0.86);
+    }
 
+    /*
+      Reveal 3:
+      Facial features become useful.
+    */
+    .stage-2 img {
+      transform: scale(1.4);
+      filter:
+        blur(3px)
+        saturate(0.94);
+    }
+
+    /*
+      Reveal 4:
+      Mostly clear, but still slightly zoomed.
+    */
     .stage-3 img {
-      transform: scale(1.08);
-      filter: none;
+      transform: scale(1.17);
+      filter: blur(0.8px);
     }
 
+    /*
+      Reveal 5:
+      Full photograph.
+    */
     .stage-4 img {
       transform: scale(1);
       filter: none;
@@ -190,12 +269,14 @@
     .chip {
       position: absolute;
       top: 14px;
+      z-index: 3;
       padding: 8px 11px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(5, 17, 12, 0.82);
+      background: rgba(5, 17, 12, 0.84);
       font-size: 12px;
       font-weight: bold;
+      backdrop-filter: blur(8px);
     }
 
     .chip-left {
@@ -204,12 +285,13 @@
 
     .chip-right {
       right: 14px;
-      color: #f4d382;
+      color: var(--gold);
     }
 
     .image-error {
       position: absolute;
       inset: 0;
+      z-index: 2;
       display: none;
       place-items: center;
       padding: 30px;
@@ -232,6 +314,16 @@
 
     .meter .active {
       background: var(--green);
+    }
+
+    .final-clue {
+      margin-bottom: 11px;
+      padding: 14px;
+      color: var(--gold);
+      border: 1px solid rgba(244, 211, 130, 0.3);
+      border-radius: 16px;
+      background: rgba(244, 211, 130, 0.07);
+      line-height: 1.45;
     }
 
     label {
@@ -258,6 +350,10 @@
       font-weight: bold;
     }
 
+    .feedback.success {
+      color: var(--success);
+    }
+
     .button-row {
       display: grid;
       grid-template-columns: 1.3fr 0.7fr;
@@ -269,7 +365,6 @@
       width: 100%;
       height: 420px;
       object-fit: cover;
-      object-position: center 20%;
       border-radius: 24px;
       background: #0b1b14;
     }
@@ -317,6 +412,26 @@
       font-size: 64px;
       font-weight: bold;
     }
+
+    .result-grid {
+      margin: 18px 0;
+      font-size: 28px;
+      letter-spacing: 4px;
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      .photo-frame {
+        min-height: 330px;
+      }
+
+      .full-photo {
+        height: 380px;
+      }
+    }
   </style>
 </head>
 
@@ -331,278 +446,944 @@
   </main>
 
   <script>
+    /*
+      faceX and faceY control where the player's face sits.
+
+      Smaller faceY values move the photograph upwards.
+
+      These can later be adjusted individually if a particular
+      player's face is not perfectly centred.
+    */
     const players = [
       {
         name: "Morten Gamst Pedersen",
-        answers: ["morten gamst pedersen", "gamst pedersen", "pedersen"],
-        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Morten_gamst_pedersen.JPG?width=900",
+
+        answers: [
+          "morten gamst pedersen",
+          "gamst pedersen",
+          "morten pedersen",
+          "pedersen"
+        ],
+
+        image:
+          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Morten_gamst_pedersen.JPG?width=900",
+
         nationality: "Norway",
         position: "Left midfielder",
         clubs: "Blackburn Rovers",
-        fact: "Remembered for his left foot, set pieces and spectacular long-range goals.",
+
+        fact:
+          "Remembered for his left foot, set pieces and spectacular long-range goals.",
+
         difficulty: 4,
-        credit: "Free-ers, CC BY 2.0, via Wikimedia Commons"
+
+        credit:
+          "Free-ers, CC BY 2.0, via Wikimedia Commons",
+
+        faceX: "50%",
+        faceY: "17%"
       },
+
       {
         name: "Niko Kranjčar",
-        answers: ["niko kranjcar", "kranjcar"],
-        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Niko_Kranj%C4%8Dar.jpg?width=900",
+
+        answers: [
+          "niko kranjcar",
+          "kranjcar",
+          "niko kranjar",
+          "kranjar"
+        ],
+
+        image:
+          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Niko_Kranj%C4%8Dar.jpg?width=900",
+
         nationality: "Croatia",
         position: "Attacking midfielder",
         clubs: "Portsmouth and Tottenham Hotspur",
-        fact: "A stylish playmaker remembered for his technique at Portsmouth and Tottenham.",
+
+        fact:
+          "A stylish playmaker remembered for his technique at Portsmouth and Tottenham.",
+
         difficulty: 5,
-        credit: "Wikimedia Commons reusable media"
+
+        credit:
+          "Wikimedia Commons reusable media",
+
+        faceX: "50%",
+        faceY: "14%"
       },
+
       {
         name: "Yakubu",
-        answers: ["yakubu", "yakubu aiyegbeni", "aiyegbeni"],
-        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yakubu.jpg?width=900",
+
+        answers: [
+          "yakubu",
+          "yakubu aiyegbeni",
+          "aiyegbeni",
+          "the yak"
+        ],
+
+        image:
+          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yakubu.jpg?width=900",
+
         nationality: "Nigeria",
         position: "Striker",
-        clubs: "Portsmouth, Middlesbrough, Everton and Blackburn",
-        fact: "A powerful Premier League striker who scored consistently for several clubs.",
+
+        clubs:
+          "Portsmouth, Middlesbrough, Everton and Blackburn",
+
+        fact:
+          "A powerful Premier League striker who scored consistently for several clubs.",
+
         difficulty: 3,
-        credit: "Wikimedia Commons reusable media"
+
+        credit:
+          "Wikimedia Commons reusable media",
+
+        faceX: "50%",
+        faceY: "18%"
       },
+
       {
         name: "Elano",
-        answers: ["elano", "elano blumer"],
-        image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Elano_blumer.jpg?width=900",
+
+        answers: [
+          "elano",
+          "elano blumer",
+          "blumer"
+        ],
+
+        image:
+          "https://commons.wikimedia.org/wiki/Special:Redirect/file/Elano_blumer.jpg?width=900",
+
         nationality: "Brazil",
         position: "Attacking midfielder",
         clubs: "Manchester City",
-        fact: "A gifted Brazilian remembered for elegant passing and brilliant free-kicks.",
+
+        fact:
+          "A gifted Brazilian remembered for elegant passing and brilliant free-kicks.",
+
         difficulty: 5,
-        credit: "Zoban, via Wikimedia Commons"
+
+        credit:
+          "Zoban, via Wikimedia Commons",
+
+        faceX: "50%",
+        faceY: "16%"
       }
     ];
 
-    const points = [1000, 750, 500, 300, 100];
-    const screen = document.getElementById("screen");
+    const points = [
+      1000,
+      750,
+      500,
+      300,
+      100
+    ];
+
+    const screen =
+      document.getElementById("screen");
 
     let game = {};
 
+    /*
+      Removes accents, punctuation and capital letters.
+
+      Kranjčar becomes kranjcar.
+    */
     function normalise(value) {
-      return value
+      return String(value)
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9 ]/g, "")
-        .trim();
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    /*
+      Measures how many letters need to change
+      for one spelling to become another.
+
+      This allows small spelling mistakes.
+    */
+    function levenshtein(first, second) {
+      const a = normalise(first);
+      const b = normalise(second);
+
+      const previousRow =
+        Array.from(
+          { length: b.length + 1 },
+          (_, index) => index
+        );
+
+      for (
+        let firstIndex = 1;
+        firstIndex <= a.length;
+        firstIndex += 1
+      ) {
+        let previousDiagonal =
+          previousRow[0];
+
+        previousRow[0] =
+          firstIndex;
+
+        for (
+          let secondIndex = 1;
+          secondIndex <= b.length;
+          secondIndex += 1
+        ) {
+          const oldValue =
+            previousRow[secondIndex];
+
+          const insertion =
+            previousRow[secondIndex - 1] + 1;
+
+          const deletion =
+            previousRow[secondIndex] + 1;
+
+          const substitution =
+            previousDiagonal +
+            (
+              a[firstIndex - 1] ===
+              b[secondIndex - 1]
+                ? 0
+                : 1
+            );
+
+          previousRow[secondIndex] =
+            Math.min(
+              insertion,
+              deletion,
+              substitution
+            );
+
+          previousDiagonal =
+            oldValue;
+        }
+      }
+
+      return previousRow[b.length];
+    }
+
+    /*
+      Decides how many spelling mistakes are acceptable.
+
+      Longer names allow slightly more errors.
+    */
+    function permittedMistakes(answerLength) {
+      if (answerLength <= 4) {
+        return 0;
+      }
+
+      if (answerLength <= 6) {
+        return 1;
+      }
+
+      if (answerLength <= 10) {
+        return 2;
+      }
+
+      return 3;
+    }
+
+    /*
+      Checks exact answers and close spellings.
+
+      Examples accepted:
+
+      krancjar
+      krancjiar
+      kranjcar
+      Kranjčar
+    */
+    function answerIsCorrect(guess, player) {
+      const cleanedGuess =
+        normalise(guess);
+
+      if (!cleanedGuess) {
+        return false;
+      }
+
+      return player.answers.some(answer => {
+        const cleanedAnswer =
+          normalise(answer);
+
+        if (
+          cleanedGuess ===
+          cleanedAnswer
+        ) {
+          return true;
+        }
+
+        const maximumMistakes =
+          permittedMistakes(
+            cleanedAnswer.length
+          );
+
+        /*
+          Prevent wildly different answers
+          from being accepted.
+        */
+        if (
+          Math.abs(
+            cleanedGuess.length -
+            cleanedAnswer.length
+          ) > maximumMistakes
+        ) {
+          return false;
+        }
+
+        /*
+          The first letter should normally match.
+        */
+        if (
+          cleanedGuess[0] !==
+          cleanedAnswer[0]
+        ) {
+          return false;
+        }
+
+        return (
+          levenshtein(
+            cleanedGuess,
+            cleanedAnswer
+          ) <= maximumMistakes
+        );
+      });
     }
 
     function shuffle(items) {
-      return [...items].sort(() => Math.random() - 0.5);
+      const copy = [...items];
+
+      for (
+        let index = copy.length - 1;
+        index > 0;
+        index -= 1
+      ) {
+        const randomIndex =
+          Math.floor(
+            Math.random() *
+            (index + 1)
+          );
+
+        [
+          copy[index],
+          copy[randomIndex]
+        ] = [
+          copy[randomIndex],
+          copy[index]
+        ];
+      }
+
+      return copy;
     }
 
     function showHome() {
       screen.innerHTML = `
         <section class="screen">
           <div class="hero">
-            <p class="eyebrow">REAL PREMIER LEAGUE NOSTALGIA</p>
-            <h1>Know the face. Remember the name.</h1>
-            <p class="muted">
-              Guess real footballers from gradually revealed photographs.
+            <p class="eyebrow">
+              REAL PREMIER LEAGUE NOSTALGIA
             </p>
-            <button id="startButton" class="primary">Play test pack</button>
+
+            <h1>
+              Know the face.
+              Remember the name.
+            </h1>
+
+            <p class="muted">
+              Guess real footballers from gradually
+              revealed photographs.
+            </p>
+
+            <button
+              id="startButton"
+              class="primary"
+              type="button"
+            >
+              Play test pack
+            </button>
           </div>
         </section>
       `;
 
-      document.getElementById("startButton").addEventListener("click", startGame);
+      document
+        .getElementById("startButton")
+        .addEventListener(
+          "click",
+          startGame
+        );
     }
 
     function startGame() {
       game = {
-        players: shuffle(players),
+        players:
+          shuffle(players),
+
         index: 0,
         stage: 0,
         score: 0,
         lives: 3,
         correct: 0,
-        wrongGuesses: 0
+        wrongGuesses: 0,
+        outcomes: []
       };
 
       showRound();
     }
 
     function currentPlayer() {
-      return game.players[game.index];
+      return game.players[
+        game.index
+      ];
     }
 
     function showRound() {
-      if (game.index >= game.players.length || game.lives <= 0) {
+      if (
+        game.index >=
+          game.players.length ||
+        game.lives <= 0
+      ) {
         showResults();
         return;
       }
 
-      const player = currentPlayer();
+      const player =
+        currentPlayer();
+
+      const finalClue =
+        game.stage === 4
+          ? `
+            <div class="final-clue">
+              <strong>Final clue</strong><br>
+              ${player.nationality}
+              ·
+              ${player.position}
+              ·
+              ${player.clubs}
+            </div>
+          `
+          : "";
 
       screen.innerHTML = `
         <section class="screen">
           <div class="game-top">
-            <span>Player ${game.index + 1} of ${game.players.length}</span>
-            <span>${"⚽".repeat(game.lives)}${"○".repeat(3 - game.lives)}</span>
+            <span>
+              Player
+              ${game.index + 1}
+              of
+              ${game.players.length}
+            </span>
+
+            <span>
+              ${"⚽".repeat(game.lives)}
+              ${"○".repeat(3 - game.lives)}
+            </span>
           </div>
 
           <div class="score-row">
-            <span class="muted">Run score</span>
-            <span class="score">${game.score}</span>
+            <span class="muted">
+              Run score
+            </span>
+
+            <span
+              id="scoreValue"
+              class="score"
+            >
+              ${game.score}
+            </span>
           </div>
 
-          <div class="photo-frame stage-${game.stage}">
-            <img id="playerImage" src="${player.image}" alt="Mystery footballer">
-            <div id="imageError" class="image-error">
+          <div
+            class="
+              photo-frame
+              stage-${game.stage}
+            "
+          >
+            <img
+              id="playerImage"
+              src="${player.image}"
+              alt="Mystery footballer"
+              referrerpolicy="no-referrer"
+              style="
+                --face-x:
+                  ${player.faceX || "50%"};
+
+                --face-y:
+                  ${player.faceY || "18%"};
+              "
+            >
+
+            <div
+              id="imageError"
+              class="image-error"
+            >
               <div>
-                <strong>The image did not load.</strong>
-                <p class="muted">Refresh the page and try again.</p>
+                <strong>
+                  The image did not load.
+                </strong>
+
+                <p class="muted">
+                  Refresh the page and try again.
+                </p>
               </div>
             </div>
 
-            <span class="chip chip-left">Reveal ${game.stage + 1} of 5</span>
-            <span class="chip chip-right">${points[game.stage]} points</span>
+            <span
+              class="
+                chip
+                chip-left
+              "
+            >
+              Reveal
+              ${game.stage + 1}
+              of 5
+            </span>
+
+            <span
+              class="
+                chip
+                chip-right
+              "
+            >
+              ${points[game.stage]}
+              points
+            </span>
           </div>
 
           <div class="meter">
             ${[0, 1, 2, 3, 4]
-              .map(stage => `<span class="${stage <= game.stage ? "active" : ""}"></span>`)
+              .map(stage => `
+                <span
+                  class="
+                    ${
+                      stage <= game.stage
+                        ? "active"
+                        : ""
+                    }
+                  "
+                ></span>
+              `)
               .join("")}
           </div>
 
+          ${finalClue}
+
           <div class="controls">
-            <label for="guess">Who is the footballer?</label>
-            <input id="guess" type="text" autocomplete="off" placeholder="Type a name or surname">
+            <label for="guess">
+              Who is the footballer?
+            </label>
 
-            <div id="feedback" class="feedback"></div>
+            <input
+              id="guess"
+              type="text"
+              autocomplete="off"
+              autocorrect="off"
+              spellcheck="false"
+              placeholder="
+                Type a name or surname
+              "
+            >
 
-            <button id="guessButton" class="primary">Lock in answer</button>
+            <div
+              id="feedback"
+              class="feedback"
+              aria-live="polite"
+            ></div>
+
+            <button
+              id="guessButton"
+              class="primary"
+              type="button"
+            >
+              Lock in answer
+            </button>
 
             <div class="button-row">
-              <button id="revealButton" class="secondary">
-                ${game.stage === 4 ? "No more reveals" : "Reveal more"}
+              <button
+                id="revealButton"
+                class="secondary"
+                type="button"
+                ${
+                  game.stage === 4
+                    ? "disabled"
+                    : ""
+                }
+              >
+                ${
+                  game.stage === 4
+                    ? "No more reveals"
+                    : "Reveal more"
+                }
               </button>
-              <button id="skipButton" class="secondary">Skip</button>
+
+              <button
+                id="skipButton"
+                class="secondary"
+                type="button"
+              >
+                Skip
+              </button>
             </div>
           </div>
         </section>
       `;
 
-      const image = document.getElementById("playerImage");
+      const image =
+        document.getElementById(
+          "playerImage"
+        );
 
-      image.addEventListener("error", () => {
-        image.style.display = "none";
-        document.getElementById("imageError").style.display = "grid";
-      });
+      image.addEventListener(
+        "error",
+        () => {
+          image.style.display =
+            "none";
 
-      const guessInput = document.getElementById("guess");
+          document
+            .getElementById(
+              "imageError"
+            )
+            .style.display =
+              "grid";
+        }
+      );
+
+      const guessInput =
+        document.getElementById(
+          "guess"
+        );
+
+      const feedback =
+        document.getElementById(
+          "feedback"
+        );
 
       function submitGuess() {
-        const guess = normalise(guessInput.value);
-        const correct = player.answers.some(answer => normalise(answer) === guess);
+        if (
+          !guessInput.value.trim()
+        ) {
+          feedback.textContent =
+            "Enter a player name first.";
+
+          return;
+        }
+
+        const correct =
+          answerIsCorrect(
+            guessInput.value,
+            player
+          );
 
         if (correct) {
-          game.score += points[game.stage];
+          game.score +=
+            points[game.stage];
+
           game.correct += 1;
-          showReveal(true);
-        } else {
-          game.wrongGuesses += 1;
-          game.score = Math.max(0, game.score - 50);
-          guessInput.value = "";
 
-          document.getElementById("feedback").textContent =
-            game.wrongGuesses >= 3
-              ? "Three incorrect guesses."
-              : "Not quite. Try again or reveal more.";
+          game.outcomes.push({
+            correct: true,
+            stage: game.stage
+          });
 
-          if (game.wrongGuesses >= 3) {
-            game.lives -= 1;
-            showReveal(false);
-          }
+          feedback.className =
+            "feedback success";
+
+          feedback.textContent =
+            "Correct.";
+
+          setTimeout(
+            () => showReveal(true),
+            250
+          );
+
+          return;
+        }
+
+        game.wrongGuesses += 1;
+
+        game.score =
+          Math.max(
+            0,
+            game.score - 50
+          );
+
+        document
+          .getElementById(
+            "scoreValue"
+          )
+          .textContent =
+            game.score;
+
+        guessInput.value = "";
+
+        feedback.textContent =
+          game.wrongGuesses >= 3
+            ? "Three incorrect guesses."
+            : "Not quite. Try again or reveal more.";
+
+        if (
+          game.wrongGuesses >= 3
+        ) {
+          game.lives -= 1;
+
+          game.outcomes.push({
+            correct: false,
+            stage: game.stage
+          });
+
+          setTimeout(
+            () => showReveal(false),
+            350
+          );
         }
       }
 
-      document.getElementById("guessButton").addEventListener("click", submitGuess);
+      document
+        .getElementById(
+          "guessButton"
+        )
+        .addEventListener(
+          "click",
+          submitGuess
+        );
 
-      guessInput.addEventListener("keydown", event => {
-        if (event.key === "Enter") {
-          submitGuess();
+      guessInput.addEventListener(
+        "keydown",
+        event => {
+          if (
+            event.key === "Enter"
+          ) {
+            submitGuess();
+          }
         }
-      });
+      );
 
-      document.getElementById("revealButton").addEventListener("click", () => {
-        if (game.stage < 4) {
-          game.stage += 1;
-          showRound();
-        }
-      });
+      document
+        .getElementById(
+          "revealButton"
+        )
+        .addEventListener(
+          "click",
+          () => {
+            if (
+              game.stage < 4
+            ) {
+              game.stage += 1;
+              showRound();
+            }
+          }
+        );
 
-      document.getElementById("skipButton").addEventListener("click", () => {
-        game.lives -= 1;
-        showReveal(false);
-      });
+      document
+        .getElementById(
+          "skipButton"
+        )
+        .addEventListener(
+          "click",
+          () => {
+            game.lives -= 1;
+
+            game.outcomes.push({
+              correct: false,
+              stage: game.stage
+            });
+
+            showReveal(false);
+          }
+        );
+
+      guessInput.focus();
     }
 
     function showReveal(correct) {
-      const player = currentPlayer();
+      const player =
+        currentPlayer();
 
       screen.innerHTML = `
         <section class="screen">
-          <p class="eyebrow">${correct ? "YOU REMEMBERED HIM" : "PLAYER MISSED"}</p>
+          <p class="eyebrow">
+            ${
+              correct
+                ? "YOU REMEMBERED HIM"
+                : "PLAYER MISSED"
+            }
+          </p>
 
-          <img class="full-photo" src="${player.image}" alt="${player.name}">
+          <img
+            class="full-photo"
+            src="${player.image}"
+            alt="${player.name}"
+            referrerpolicy="no-referrer"
+            style="
+              object-position:
+                ${player.faceX || "50%"}
+                ${player.faceY || "18%"};
+            "
+          >
 
-          <h1 class="player-name">${player.name}</h1>
-          <p class="muted">${player.nationality} · ${player.position}</p>
+          <h1 class="player-name">
+            ${player.name}
+          </h1>
+
+          <p class="muted">
+            ${player.nationality}
+            ·
+            ${player.position}
+          </p>
 
           <div class="details">
             <div class="detail-row">
-              <span>Premier League club(s)</span>
-              <strong>${player.clubs}</strong>
+              <span>
+                Premier League club(s)
+              </span>
+
+              <strong>
+                ${player.clubs}
+              </strong>
             </div>
 
             <div class="detail-row">
-              <span>Difficulty</span>
-              <strong>${player.difficulty}/10</strong>
+              <span>
+                Difficulty
+              </span>
+
+              <strong>
+                ${player.difficulty}/10
+              </strong>
             </div>
 
-            <p class="muted">${player.fact}</p>
+            <p class="muted">
+              ${player.fact}
+            </p>
 
             <p class="attribution">
-              Photograph: ${player.credit}. Cropped, blurred and zoomed for gameplay.
+              Photograph:
+              ${player.credit}.
+              Cropped, blurred and zoomed
+              for gameplay.
             </p>
           </div>
 
-          <button id="nextButton" class="primary">
-            ${game.index === game.players.length - 1 ? "See final score" : "Next player"}
+          <button
+            id="forgottenButton"
+            class="forgotten-button"
+            type="button"
+          >
+            💭 I’d forgotten about him!
+          </button>
+
+          <button
+            id="nextButton"
+            class="primary"
+            type="button"
+          >
+            ${
+              game.index ===
+              game.players.length - 1
+                ? "See final score"
+                : "Next player"
+            }
           </button>
         </section>
       `;
 
-      document.getElementById("nextButton").addEventListener("click", () => {
-        game.index += 1;
-        game.stage = 0;
-        game.wrongGuesses = 0;
-        showRound();
-      });
+      document
+        .getElementById(
+          "forgottenButton"
+        )
+        .addEventListener(
+          "click",
+          event => {
+            event.currentTarget
+              .textContent =
+                "💭 That one got me";
+
+            event.currentTarget
+              .disabled =
+                true;
+          }
+        );
+
+      document
+        .getElementById(
+          "nextButton"
+        )
+        .addEventListener(
+          "click",
+          () => {
+            game.index += 1;
+            game.stage = 0;
+            game.wrongGuesses = 0;
+
+            showRound();
+          }
+        );
     }
 
     function showResults() {
+      const grid =
+        game.outcomes
+          .map(outcome => {
+            if (!outcome.correct) {
+              return "🟥";
+            }
+
+            if (
+              outcome.stage <= 1
+            ) {
+              return "🟩";
+            }
+
+            return "🟨";
+          })
+          .join("");
+
       screen.innerHTML = `
         <section class="screen">
           <div class="results-card">
-            <p class="eyebrow">FULL TIME</p>
-            <h1>Terrace knowledge tested.</h1>
-            <div class="big-score">${game.score}</div>
-            <p class="muted">
-              You recognised ${game.correct} of ${game.players.length} footballers.
+            <p class="eyebrow">
+              FULL TIME
             </p>
-            <button id="againButton" class="primary">Play again</button>
+
+            <h1>
+              Terrace knowledge tested.
+            </h1>
+
+            <div class="big-score">
+              ${game.score}
+            </div>
+
+            <p class="muted">
+              You recognised
+              ${game.correct}
+              of
+              ${game.players.length}
+              footballers.
+            </p>
+
+            <div class="result-grid">
+              ${grid}
+            </div>
+
+            <button
+              id="againButton"
+              class="primary"
+              type="button"
+            >
+              Play again
+            </button>
           </div>
         </section>
       `;
 
-      document.getElementById("againButton").addEventListener("click", startGame);
+      document
+        .getElementById(
+          "againButton"
+        )
+        .addEventListener(
+          "click",
+          startGame
+        );
     }
 
     showHome();
